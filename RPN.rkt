@@ -13,10 +13,14 @@
 ; Function to evaluate reverse polish notation
 (define (rpnEval l)
   (if(list? l)
-     "It's a list!"
-     null)
+     (if (>= (length l) 1)
+     l
+     ((car l) (cadr l) (rpnEval(cdr l)))
+     )
+     null
   )
+)
 
 ; Testing function
 (rpnEval 6)
-(rpnEval (list 1 2 3 4))
+(rpnEval (reverse (list 3 8 + 3 *)))
