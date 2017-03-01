@@ -11,4 +11,12 @@
 ; (38+3*)
 
 ; Function to evaluate reverse polish notation
-;()
+(define (rpnEval l)
+  (if(list? l)
+     "It's a list!"
+     null)
+  )
+
+; Testing function
+(rpnEval 6)
+(rpnEval (list 1 2 3 4))
