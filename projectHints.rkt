@@ -21,5 +21,17 @@
       (if (= s 1) #t #f)
       (if (= (car e) 1)
           (valid-rpn? (cdr e) (+ 1 s)) ; if number, add one to stack and pass cdr of list into func again
-          ()
+          (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
           )))
+
+; so if car e = -1 take 2 off the stack and
+; put up one on (or take off one)
+; then call valid-rpn? function with cdr e again. (valid-rpn> (cdr e))
+
+(map valid-rpn? (map make-rpn x))
+;(valid-rpn? (list 1 1 -1 1 -1 1 1 -1 -1))
+
+; map a new func and (map make-rpn x)
+; the new function passes the list passed from the mapping
+; to valid-rpn? and checks if true or false, if true, save that list to a list of all
+; valid rpn patterns
