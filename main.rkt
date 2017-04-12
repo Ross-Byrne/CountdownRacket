@@ -35,8 +35,8 @@
       (if (= s 1) #t #f)
       (if (= (car e) 1)
           (valid-rpn? (cdr e) (+ 1 s)) ; if number, add one to stack and pass cdr of list into func again
-          (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
-          )))
+          (if (= s 1) #f (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
+              ))))
 
 ; filters all of the possible rpn patterns
 ; runs each one through valid-rpn? function
@@ -51,6 +51,7 @@
 (define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
 (car all-5-opers-all-6-nums)
+valid-rpn-list
 
 ; function that evaluates valid rpn using valid patterns
 ; adapted from valid-rpn? function
@@ -63,13 +64,9 @@
       (if (= (length s) 1)
           s
           (if (= (car pattern-list) 1)
-          (append s (car num-list)
-           (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) s))
-          (append s (car oper-list) (last s) (last (last s))
-           (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list s)))
+          (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (append s (car num-list)))
+          (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (append s ((car oper-list) (last s) (last (last s)))))))
           )
-      ))
+      )
 
 (evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (cdr (car all-5-opers-all-6-nums)))
-
-
