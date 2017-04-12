@@ -32,16 +32,20 @@
 ; at the end, only one num should be on stack.
 (define (valid-rpn? e [s 0])
   (if (null? e)
-      (if (= s 1) #t #f)
-      (if (= (car e) 1)
-          (valid-rpn? (cdr e) (+ 1 s)) ; if number, add one to stack and pass cdr of list into func again
-          (if (= s 1) #f (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
-              ))))
+      (if (= s 1) #t #f) ; if the list is empty and s = 1, it's valid rpn
+      (if (= (car e) 1) ; check next item in pattern is 1 or -1
+          (valid-rpn? (cdr e) (+ s 1)) ; if number, add one to stack and pass cdr of list into func again
+          (if (< (- s 1) 1) ; if operator, check that stack wont end up less then 1
+              #f ; stack went less then 1, not valid
+              (valid-rpn? (cdr e) (- s 1)) ; if operator, take one from stack and pass cdr of list into func again
+              )
+          )))
 
 ; filters all of the possible rpn patterns
 ; runs each one through valid-rpn? function
 ; and only returns the pattern if it is valid (if valid-rpn? returns #t)
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
+(length valid-rpn-list)
 
 ; display list of valid rpn patterns
 ;valid-rpn-list
@@ -51,7 +55,6 @@
 (define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
 (car all-5-opers-all-6-nums)
-valid-rpn-list
 
 ; function that evaluates valid rpn using valid patterns
 ; adapted from valid-rpn? function
@@ -69,4 +72,4 @@ valid-rpn-list
           )
       )
 
-(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (cdr (car all-5-opers-all-6-nums)))
+;(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (cdr (car all-5-opers-all-6-nums)))
