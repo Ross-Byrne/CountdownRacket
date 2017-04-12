@@ -13,6 +13,13 @@
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
 (define all-rpn-patterns (map make-rpn x))
 
+; Define a list of all perms of 6 numbers
+; Will hard code 6 numbers for now
+
+
+; define list of all possible operator combinations
+; Do using qartisan product
+
 ; function that evaluates if rpn is valid.
 ; for every operator, there must be 2 nums on stack.
 ; at the end, only one num should be on stack.
@@ -31,5 +38,7 @@
 
 ; display iist of valid rpn patterns
 valid-rpn-list
+
+
 
 
