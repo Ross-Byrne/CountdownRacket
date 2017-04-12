@@ -15,7 +15,10 @@
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
+(define number-list (list 1 2 2 4 1 6))
 
+;(length (permutations L)) ; without removing dupes
+(length (remove-duplicates (permutations number-list))) ; removes the dupes
 
 ; define list of all possible operator combinations
 ; Do using qartisan product
@@ -37,7 +40,7 @@
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 
 ; display iist of valid rpn patterns
-valid-rpn-list
+;valid-rpn-list
 
 
 
