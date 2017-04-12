@@ -27,12 +27,6 @@
 ; define a list of all perms of a 6 number list without dupes
 (define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
 
-;(length (permutations L)) ; without removing dupes
-(length (remove-duplicates (permutations number-list))) ; removes the dupes
-
-; all of the possible combinations of the 5 operators
-(length all-5-operators)
-
 ; function that evaluates if rpn is valid.
 ; for every operator, there must be 2 nums on stack.
 ; at the end, only one num should be on stack.
@@ -49,13 +43,26 @@
 ; and only returns the pattern if it is valid (if valid-rpn? returns #t)
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 
-; display iist of valid rpn patterns
+; display list of valid rpn patterns
 ;valid-rpn-list
 
 ; define a list of all the combinations of 5 operators
 ; and 6 numbers
-(length (cartesian-product all-5-operators all-6-numbers))
+(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
+(car all-5-opers-all-6-nums)
 
+; function that evaluates valid rpn using valid patterns
+; adapted from valid-rpn? function
+; Need to pass in, the valid rpn pattern,
+; the list of operators, the list of numbers
+; and the stack that is used to keep track of evaluation
+(define (evaluate-rpn e [s (null)])
+  (if (null? e)
+      (if (= s 1) #t #f)
+      (if (= (car e) 1)
+          (valid-rpn? (cdr e) (+ 1 s)) ; if number, add one to stack and pass cdr of list into func again
+          (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
+          )))
 
 
