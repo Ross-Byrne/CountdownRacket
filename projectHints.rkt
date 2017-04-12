@@ -11,7 +11,7 @@
   (append (list 1 1) l (list -1)))
 
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
-(map make-rpn x)
+(define all-rpn-patterns (map make-rpn x))
 
 ; function that evaluates if rpn is valid.
 ; for every operator, there must be 2 nums on stack.
@@ -28,7 +28,7 @@
 ; put up one on (or take off one)
 ; then call valid-rpn? function with cdr e again. (valid-rpn> (cdr e))
 
-(map valid-rpn? (map make-rpn x))
+(map valid-rpn? all-rpn-patterns)
 ;(valid-rpn? (list 1 1 -1 1 -1 1 1 -1 -1))
 
 ; map a new func and (map make-rpn x)
