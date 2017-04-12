@@ -28,10 +28,13 @@
 ; put up one on (or take off one)
 ; then call valid-rpn? function with cdr e again. (valid-rpn> (cdr e))
 
-(map valid-rpn? all-rpn-patterns)
+;(map valid-rpn? all-rpn-patterns)
 ;(valid-rpn? (list 1 1 -1 1 -1 1 1 -1 -1))
 
 ; map a new func and (map make-rpn x)
 ; the new function passes the list passed from the mapping
 ; to valid-rpn? and checks if true or false, if true, save that list to a list of all
 ; valid rpn patterns
+(filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns)
+
+
