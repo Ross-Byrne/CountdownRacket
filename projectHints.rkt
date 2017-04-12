@@ -24,17 +24,12 @@
           (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
           )))
 
-; so if car e = -1 take 2 off the stack and
-; put up one on (or take off one)
-; then call valid-rpn? function with cdr e again. (valid-rpn> (cdr e))
+; filters all of the possible rpn patterns
+; runs each one through valid-rpn? function
+; and only returns the pattern if it is valid (if valid-rpn? returns #t)
+(define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 
-;(map valid-rpn? all-rpn-patterns)
-;(valid-rpn? (list 1 1 -1 1 -1 1 1 -1 -1))
-
-; map a new func and (map make-rpn x)
-; the new function passes the list passed from the mapping
-; to valid-rpn? and checks if true or false, if true, save that list to a list of all
-; valid rpn patterns
-(filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns)
+; display iist of valid rpn patterns
+valid-rpn-list
 
 
