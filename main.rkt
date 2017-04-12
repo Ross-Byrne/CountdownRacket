@@ -57,12 +57,19 @@
 ; Need to pass in, the valid rpn pattern,
 ; the list of operators, the list of numbers
 ; and the stack that is used to keep track of evaluation
-(define (evaluate-rpn e [s (null)])
-  (if (null? e)
-      (if (= s 1) #t #f)
-      (if (= (car e) 1)
-          (valid-rpn? (cdr e) (+ 1 s)) ; if number, add one to stack and pass cdr of list into func again
-          (valid-rpn? (cdr e) (- 1 s)) ; if operator, take one from stack and pass cdr of list into func again
-          )))
+(define (evaluate-rpn pattern-list oper-list num-list [s (list )])
+  (if (and (null? oper-list) (null? num-list))
+      s
+      (if (= (length s) 1)
+          s
+          (if (= (car pattern-list) 1)
+          (append s (car num-list)
+           (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) s))
+          (append s (car oper-list) (last s) (last (last s))
+           (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list s)))
+          )
+      ))
+
+(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (cdr (car all-5-opers-all-6-nums)))
 
 
