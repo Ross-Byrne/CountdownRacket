@@ -4,7 +4,7 @@
 (define start-perm (list -1 -1 -1 -1 1 1 1 1))
 
 ; List of all operators that can be used
-(define operators (list '+ '- '* '/))
+(define operators (list + - * /))
 
 ; Permutations must have 1 1 at the start. Must end with -1.
 (define x (remove-duplicates (permutations start-perm)))
@@ -64,28 +64,27 @@
 ; Need to pass in, the valid rpn pattern,
 ; the list of operators, the list of numbers
 ; and the stack that is used to keep track of evaluation
+
+; when evaluating, a list is used as a stack by adding numbers to front with cons
+; to an operator is taken from operator list, and the first 2 numbers are taken from stack
+; eg (car stack) and (car (cdr stack)). Then the result is added to the front of the list (again because it is acting as a stack)
+; this is achieved by (cons "result number" (cdr (cdr stack))). This adds the calculated number to the front of the list,
+; but the first with the first 2 number removed, so the result of the calculation can replace to 2 numbers.
 (define (evaluate-rpn pattern-list oper-list num-list s)
-  (if (null? pattern-list)
-      s
-  (if (= (car pattern-list) 1)
-      (if (null? num-list)
-          pattern-list
-          (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s)))
-      (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((eval (car oper-list)) (car s) (car (cdr s))) (cdr (cdr s)))))))
+  (if (null? pattern-list) ; if pattern list is empty, return the stack
+      s ; return stack
+      (if (= (car pattern-list) 1) ; otherwise, check if first pattern is 1
+          ; if yes, add the number to front of list, pass the rest of the patterns, all opers, the rest of the numbers and the updated stack back to func
+          (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s))
+          ; if -1, take the first oper off oper list, apply it to first and second num on stack, then add the result to front of stack but (cdr (cdr s)
+          ; which is the stack, without the first 2 values which where just used in oper calc. eg stack goes from (1 2) -> (3) if added.
+          (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s))))
+      )
+  )
+)
        
       
 
-;(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
-
-      ;(if (= (length s) 1)
-          ;s
-
-  ; )
-;(define cue (list 1 2 3))
-;cue
-;(car cue)
-;(car (cdr cue))
-;(cons (+ (car cue) (car (cdr cue))) (cdr (cdr cue)))
-
+(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
 
 
