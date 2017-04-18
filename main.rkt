@@ -16,6 +16,9 @@
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
 (define all-rpn-patterns (map make-rpn x))
 
+; The target number (must be between 101 and 999 inclusive)
+(define target-number 250)
+
 ; define list of all possible operator combinations
 ; using cartesian product
 (define all-5-operators (cartesian-product operators operators operators operators operators))
@@ -52,12 +55,17 @@
 
 ; define a list of all the combinations of 5 operators
 ; and 6 numbers
-(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
+;(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
-(car valid-rpn-list)
-(car all-5-opers-all-6-nums)
-(car (car all-5-opers-all-6-nums))
-(car (cdr (car all-5-opers-all-6-nums)))
+; That is all 6 numbers X all 5 operators X all rpn patterns
+; This requires 1GB of memory allocated
+(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers valid-rpn-list))
+
+(length valid-rpn-list)
+(length all-5-opers-all-6-nums)
+(first all-5-opers-all-6-nums)
+(second all-5-opers-all-6-nums)
+(third all-5-opers-all-6-nums)
 
 ; ////////////////////////////////////////////////// RPN Evaluation Function /////////////////////////////////////////////////////////
 ; function that evaluates valid rpn using valid patterns
@@ -90,4 +98,9 @@
 
 (evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
 
+; Map all combinations of the rpn patterns, operators and numbers
+; Filter all results that equal the target number
+;(define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 
+; Function that takes one set of numbers and one set of operators
+; that then evaluates the numbers and operators with every valid RPN pattern
