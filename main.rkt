@@ -59,6 +59,7 @@
 (car (car all-5-opers-all-6-nums))
 (car (cdr (car all-5-opers-all-6-nums)))
 
+; ////////////////////////////////////////////////// RPN Evaluation Function /////////////////////////////////////////////////////////
 ; function that evaluates valid rpn using valid patterns
 ; adapted from valid-rpn? function
 ; Need to pass in, the valid rpn pattern,
@@ -69,21 +70,23 @@
 ; to an operator is taken from operator list, and the first 2 numbers are taken from stack
 ; eg (car stack) and (car (cdr stack)). Then the result is added to the front of the list (again because it is acting as a stack)
 ; this is achieved by (cons "result number" (cdr (cdr stack))). This adds the calculated number to the front of the list,
-; but the first with the first 2 number removed, so the result of the calculation can replace to 2 numbers.
+; but the list with the first 2 numbers removed, so the result of the calculation can replace to 2 numbers.
 (define (evaluate-rpn pattern-list oper-list num-list s)
   (if (null? pattern-list) ; if pattern list is empty, return the stack
       s ; return stack
       (if (= (car pattern-list) 1) ; otherwise, check if first pattern is 1
-          ; if yes, add the number to front of list, pass the rest of the patterns, all opers, the rest of the numbers and the updated stack back to func
+          ; if yes, add the number to front of list, pass the rest of the patterns,
+          ; all opers, the rest of the numbers and the updated stack back to func
           (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s))
-          ; if -1, take the first oper off oper list, apply it to first and second num on stack, then add the result to front of stack but (cdr (cdr s)
-          ; which is the stack, without the first 2 values which where just used in oper calc. eg stack goes from (1 2) -> (3) if added.
+          ; if -1, take the first oper off oper list, apply it to first and second num on stack,
+          ; then add the result to front of stack but (cdr (cdr s) which is the stack, without the first 2 values which 
+          ; where just used in oper calc. eg stack goes from (1 2) -> (3) if added.
           (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s))))
       )
   )
 )
-       
-      
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 (evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
 
