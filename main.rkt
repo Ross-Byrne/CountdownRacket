@@ -68,13 +68,14 @@
   (if (null? pattern-list)
       s
   (if (= (car pattern-list) 1)
-   
-      (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s))
-      (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s)))))))
+      (if (null? num-list)
+          pattern-list
+          (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s)))
+      (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((eval (car oper-list)) (car s) (car (cdr s))) (cdr (cdr s)))))))
        
       
 
-(evaluate-rpn (car valid-rpn-list) (car (cdr (car all-5-opers-all-6-nums))) (cdr (car all-5-opers-all-6-nums)) (list ))
+;(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
 
       ;(if (= (length s) 1)
           ;s
