@@ -45,7 +45,7 @@
 ; runs each one through valid-rpn? function
 ; and only returns the pattern if it is valid (if valid-rpn? returns #t)
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
-(length valid-rpn-list)
+;(length valid-rpn-list)
 
 ; display list of valid rpn patterns
 ;valid-rpn-list
@@ -54,22 +54,37 @@
 ; and 6 numbers
 (define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
+(car valid-rpn-list)
 (car all-5-opers-all-6-nums)
+(car (car all-5-opers-all-6-nums))
+(car (cdr (car all-5-opers-all-6-nums)))
 
 ; function that evaluates valid rpn using valid patterns
 ; adapted from valid-rpn? function
 ; Need to pass in, the valid rpn pattern,
 ; the list of operators, the list of numbers
 ; and the stack that is used to keep track of evaluation
-(define (evaluate-rpn pattern-list oper-list num-list [s (list )])
-  (if (and (null? oper-list) (null? num-list))
+(define (evaluate-rpn pattern-list oper-list num-list s)
+  (if (null? pattern-list)
       s
-      (if (= (length s) 1)
-          s
-          (if (= (car pattern-list) 1)
-          (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (append s (car num-list)))
-          (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (append s ((car oper-list) (last s) (last (last s)))))))
-          )
-      )
+  (if (= (car pattern-list) 1)
+   
+      (evaluate-rpn (cdr pattern-list) oper-list (cdr num-list) (cons (car num-list) s))
+      (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s)))))))
+       
+      
 
-;(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (cdr (car all-5-opers-all-6-nums)))
+(evaluate-rpn (car valid-rpn-list) (car (cdr (car all-5-opers-all-6-nums))) (cdr (car all-5-opers-all-6-nums)) (list ))
+
+      ;(if (= (length s) 1)
+          ;s
+
+  ; )
+;(define cue (list 1 2 3))
+;cue
+;(car cue)
+;(car (cdr cue))
+;(cons (+ (car cue) (car (cdr cue))) (cdr (cdr cue)))
+
+
+
