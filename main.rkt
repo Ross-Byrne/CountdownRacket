@@ -1,5 +1,7 @@
 #lang racket
 
+"Starting..." ; Feedback for users, so they know program has started
+
 ; cut out one -1 and two 1s
 (define start-perm (list -1 -1 -1 -1 1 1 1 1))
 
@@ -99,7 +101,7 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-;(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
+(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
 
 ; Filter all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
@@ -110,8 +112,25 @@
   )
 
 
-filter-correct-evaluations
+;filter-correct-evaluations
+
 
 ; Create function that gets result of filter-correct-evaluations and builds RPN list with pattern, operator and numbers to display
+; This function is adapted from the function evaluate-rpn
+(define (format-correct-evaluation pattern-list oper-list num-list [s (list )])
+  (if (null? pattern-list) ; if pattern list is empty, return the stack
+      (quasiquote s) ; return stack
+      (if (= (car pattern-list) 1) ; otherwise, check if first pattern is 1
+         
+          (format-correct-evaluation (cdr pattern-list) oper-list (cdr num-list) (append s (list (car num-list))))
+
+          (format-correct-evaluation (cdr pattern-list) (cdr oper-list) num-list  (append s (list (car oper-list)))))
+      )
+  )
+
+;(first (car filter-correct-evaluations))
+;(second (car filter-correct-evaluations))
+;(third (car filter-correct-evaluations))
+;(format-correct-evaluation (first (car filter-correct-evaluations)) (second (car filter-correct-evaluations)) (third (car filter-correct-evaluations)))
 
 "Finished"
