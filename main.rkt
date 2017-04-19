@@ -63,7 +63,6 @@
 (define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
 
 (length valid-rpn-list)
-(length all-5-opers-all-6-nums)
 (car all-5-opers-all-6-nums)
 (first (car all-5-opers-all-6-nums))
 (second (car all-5-opers-all-6-nums))
@@ -100,20 +99,18 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
+;(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
 
-;(/ 2 0)
-(/ 0 2)
-; Map all combinations of the rpn patterns, operators and numbers
+; Filter all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
 (define solvecount
   (filter (lambda (l)
             (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
   )
 
-; Function that takes one set of numbers and one set of operators
-; that then evaluates the numbers and operators with every valid RPN pattern
 
 solvecount
 
-"Damn Girl"
+; Create function that gets result of solvecount and builds RPN list with pattern, operator and numbers to display
+
+"Finished"
