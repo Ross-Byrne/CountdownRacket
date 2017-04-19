@@ -62,11 +62,11 @@
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
 (define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
 
-(length valid-rpn-list)
-(car all-5-opers-all-6-nums)
-(first (car all-5-opers-all-6-nums))
-(second (car all-5-opers-all-6-nums))
-(third (car all-5-opers-all-6-nums))
+;(length valid-rpn-list)
+;(car all-5-opers-all-6-nums)
+;(first (car all-5-opers-all-6-nums))
+;(second (car all-5-opers-all-6-nums))
+;(third (car all-5-opers-all-6-nums))
 
 ; ////////////////////////////////////////////////// RPN Evaluation Function /////////////////////////////////////////////////////////
 ; function that evaluates valid rpn using valid patterns
@@ -103,14 +103,15 @@
 
 ; Filter all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
-(define solvecount
+; The function filter is not parallel unfortunately, so this is a bottle-neck
+(define filter-correct-evaluations
   (filter (lambda (l)
             (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
   )
 
 
-solvecount
+filter-correct-evaluations
 
-; Create function that gets result of solvecount and builds RPN list with pattern, operator and numbers to display
+; Create function that gets result of filter-correct-evaluations and builds RPN list with pattern, operator and numbers to display
 
 "Finished"
