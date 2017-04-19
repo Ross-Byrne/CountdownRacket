@@ -17,7 +17,7 @@
 (define all-rpn-patterns (map make-rpn x))
 
 ; The target number (must be between 101 and 999 inclusive)
-(define target-number 250)
+(define target-number 424)
 
 ; define list of all possible operator combinations
 ; using cartesian product
@@ -25,7 +25,7 @@
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
-(define number-list (list 1 2 2 4 1 6))
+(define number-list (list 100 25 10 2 2 1))
 
 ; define a list of all perms of a 6 number list without dupes
 (define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
@@ -57,15 +57,17 @@
 ; and 6 numbers
 ;(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
-; That is all 6 numbers X all 5 operators X all rpn patterns
+; That is all rpn patterns X all 5 operators X all 6 numbers
 ; This requires 1GB of memory allocated
-(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers valid-rpn-list))
+; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
+(define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
 
 (length valid-rpn-list)
 (length all-5-opers-all-6-nums)
-(first all-5-opers-all-6-nums)
-(second all-5-opers-all-6-nums)
-(third all-5-opers-all-6-nums)
+(car all-5-opers-all-6-nums)
+(first (car all-5-opers-all-6-nums))
+(second (car all-5-opers-all-6-nums))
+(third (car all-5-opers-all-6-nums))
 
 ; ////////////////////////////////////////////////// RPN Evaluation Function /////////////////////////////////////////////////////////
 ; function that evaluates valid rpn using valid patterns
@@ -79,9 +81,9 @@
 ; eg (car stack) and (car (cdr stack)). Then the result is added to the front of the list (again because it is acting as a stack)
 ; this is achieved by (cons "result number" (cdr (cdr stack))). This adds the calculated number to the front of the list,
 ; but the list with the first 2 numbers removed, so the result of the calculation can replace to 2 numbers.
-(define (evaluate-rpn pattern-list oper-list num-list s)
+(define (evaluate-rpn pattern-list oper-list num-list [s (list )])
   (if (null? pattern-list) ; if pattern list is empty, return the stack
-      s ; return stack
+      (car s) ; return stack
       (if (= (car pattern-list) 1) ; otherwise, check if first pattern is 1
           ; if yes, add the number to front of list, pass the rest of the patterns,
           ; all opers, the rest of the numbers and the updated stack back to func
@@ -89,18 +91,29 @@
           ; if -1, take the first oper off oper list, apply it to first and second num on stack,
           ; then add the result to front of stack but (cdr (cdr s) which is the stack, without the first 2 values which 
           ; where just used in oper calc. eg stack goes from (1 2) -> (3) if added.
-          (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s))))
+          (if (and (equal? (car oper-list) /) (equal? (car (cdr s)) 0))
+              0
+              (evaluate-rpn (cdr pattern-list) (cdr oper-list) num-list (cons ((car oper-list) (car s) (car (cdr s))) (cdr (cdr s)))))
       )
   )
 )
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-(evaluate-rpn (car valid-rpn-list) (car (car all-5-opers-all-6-nums)) (car (cdr (car all-5-opers-all-6-nums))) (list ))
+(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
 
+;(/ 2 0)
+(/ 0 2)
 ; Map all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
-;(define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
+(define solvecount
+  (filter (lambda (l)
+            (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
+  )
 
 ; Function that takes one set of numbers and one set of operators
 ; that then evaluates the numbers and operators with every valid RPN pattern
+
+solvecount
+
+"Damn Girl"
