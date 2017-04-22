@@ -211,24 +211,28 @@
 ;(numbers-in-pool? (list 1 2 3 100 75 100)) ; #f
 ;(numbers-in-pool? (list 1 2 3 4 5 200)) ; #f
 
-
-
 ; function that validates the numbers entered
 ; the list must have 6 numbers and must be from the
-; pool of allowed numbers
+; pool of allowed numbers. Returns #t or #f
 (define (valid-numbers? l)
-  (if (null? l)
-      #f
+  (if (null? l) ; check if list is null
+      #f ; if so, invalid numbers
+      ; make sure the list is length 6, must be 6 numbers
       (if (equal? (length l) 6)
-          #t ; replace this with function that checks numbers are from num pool
-          #f
-          ))
-  )
+          ; if 6, run numbers through function that checks
+          ; the numbers are in the pool, returns #t or #f
+          (numbers-in-pool? l)
+          #f ; not 6 numbers, invalid
+       )
+   )
+)
+
 ; test
-;(valid-numbers? (list 1 2 3 4 5 6))
-;(valid-numbers? (list 1 2 3 4 5))
-;(valid-numbers? (list 1 2 3 4 4 4))
-;(valid-numbers? (list 1 2 2 4 5 6))
+(valid-numbers? (list 1 2 3 4 5 6)) ; #t
+(valid-numbers? (list 1 2 3 4 5))   ; #f
+(valid-numbers? (list 1 2 3 4 4 4)) ; #f
+(valid-numbers? (list 1 2 2 4 100 6)) ; #t
+(valid-numbers? (list 1 2 2 4 100 6 25)) ; #f
 
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
