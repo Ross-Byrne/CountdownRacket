@@ -33,6 +33,10 @@
 (define all-2-operators (cartesian-product operators operators )) ; all 2
 (define all-1-operators (cartesian-product operators)) ; basicaly just operators list, just trying to be consistent
 
+; a list each list of operators on it
+; first entry is 5 operator and it goes all the way to 1
+(define list-of-all-oper-lists (list all-5-operators all-4-operators all-3-operators all-2-operators all-1-operators))
+
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
 (define number-list (list 100 25 10 2 2 1))
@@ -73,8 +77,10 @@
   (remove-duplicates (format-list-of-lists (map permutations (combinations l n))))
 )
 
-(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
-(length (get-all-perms l 6))
+;(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
+;(length (get-all-perms l 6))
+
+
 
 
 
@@ -114,8 +120,8 @@
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
 (define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
 
-(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
-(length all-5-opers-all-6-nums)
+;(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
+;(length all-5-opers-all-6-nums)
 
 ;(length valid-rpn-list)
 ;(car all-5-opers-all-6-nums)
