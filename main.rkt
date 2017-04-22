@@ -164,8 +164,28 @@
   (map format-solution l)
   )
 
+; Function to validate the target number entered
+; The target number must be between 101 and 999
+(define (valid-target? t)
+  ; validate t is number
+  (if (number? t)
+      ; if yes, make sure number is greater than 100
+      ; and less than 1000
+      (if (and (> t 100) (< t 1000))
+          #t ;target in range
+          #f ; not in range
+      )
+      #f ; not a number, not valid
+  ))
+; test
+(valid-target? 101)
+(valid-target? 100)
+(valid-target? 400)
+(valid-target? 999)
+(valid-target? 1000)
+
 ; format all solutions
-(format-all-solutions correct-evaluations)
+;(format-all-solutions correct-evaluations)
 
 ; the main function so solve the problem
 ; Takes a target number and a list of numbers
