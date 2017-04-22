@@ -55,6 +55,7 @@
 ;(remove-duplicates (permutations l))
 (length (combinations l 2))
 (length (remove-duplicates (permutations (car (combinations l 6)))))
+(remove-duplicates(map append (combinations l 3)))
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
