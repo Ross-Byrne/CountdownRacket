@@ -36,6 +36,9 @@
 ; define a list of all perms of a 6 number list without dupes
 (define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
 
+
+; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
+
 ; function that evaluates if rpn is valid.
 ; for every operator, there must be 2 nums on stack.
 ; at the end, only one num should be on stack.
@@ -49,6 +52,8 @@
               (valid-rpn? (cdr e) (- s 1)) ; if operator, take one from stack and pass cdr of list into func again
               )
           )))
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ; filters all of the possible rpn patterns
 ; runs each one through valid-rpn? function
@@ -74,7 +79,8 @@
 ;(second (car all-5-opers-all-6-nums))
 ;(third (car all-5-opers-all-6-nums))
 
-; ////////////////////////////////////////////////// RPN Evaluation Function /////////////////////////////////////////////////////////
+; ////////////////////////////////////////////////// evaluate-rpn Function /////////////////////////////////////////////////////////
+
 ; function that evaluates valid rpn using valid patterns
 ; adapted from valid-rpn? function
 ; Need to pass in, the valid rpn pattern,
@@ -107,6 +113,9 @@
 
 ;(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
 
+
+; ////////////////////////////////////////////////// correct-evaluations Function /////////////////////////////////////////////////////////
+
 ; Function correct-evaluations filters all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
 ; The function filter is not parallel unfortunately, so this is a bottle-neck
@@ -114,6 +123,11 @@
   (filter (lambda (l)
             (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
   )
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// format-correct-evaluation Function /////////////////////////////////////////////////////////
 
 ; Function that gets result of filter-correct-evaluations and builds RPN list with pattern, operator and numbers to display
 ; This function is adapted from the function evaluate-rpn
@@ -133,6 +147,11 @@
       )
   )
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// replace-operators Function /////////////////////////////////////////////////////////
+
 ; Function that cleans up display solution
 ; replaces the operators with a quoted version
 ; so that + doesn't get displayed as #<procedure:+>
@@ -148,8 +167,13 @@
                   '/
                   old)))))
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ; map all elements in list to replace function
 ;(map replace-operators (format-correct-evaluation (first (car filter-correct-evaluations)) (second (car filter-correct-evaluations)) (third (car filter-correct-evaluations))))
+
+
+; ////////////////////////////////////////////////// format-solution Function /////////////////////////////////////////////////////////
 
 ; function to format a solution to reaching target number
 ; runs the solution through format-correct-evaluation function
@@ -161,11 +185,23 @@
   (map replace-operators (format-correct-evaluation (first l) (second l) (third l)))
  )
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// format-all-solutions Function /////////////////////////////////////////////////////////
+
 ; function that formats all of the solutions
 ; by mapping all solutions to format-solution function
 (define (format-all-solutions l)
+  ; maps all correct evaluations to format-solution function
+  ; this formats all of the solutions into a nice list
   (map format-solution l)
-  )
+)
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// valid-target? Function /////////////////////////////////////////////////////////
 
 ; Function to validate the target number entered
 ; The target number must be between 101 and 999
@@ -180,12 +216,18 @@
       )
       #f ; not a number, not valid
   ))
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ; test
 ;(valid-target? 101)
 ;(valid-target? 100)
 ;(valid-target? 400)
 ;(valid-target? 999)
 ;(valid-target? 1000)
+
+
+; ////////////////////////////////////////////////// numbers-in-pool? Function /////////////////////////////////////////////////////////
 
 ; function that checks input numbers are from the list of valid numbers
 ; and that there are not more of the same numbers then allowed eg 2 2 2 2
@@ -204,6 +246,8 @@
       ))
   )
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ; test
 ;(numbers-in-pool? (list 1 25 3 4 5 6)) ; #t
 ;(numbers-in-pool? (list 1 1 3 4 5 100)) ; #t
@@ -211,7 +255,10 @@
 ;(numbers-in-pool? (list 1 2 3 100 75 100)) ; #f
 ;(numbers-in-pool? (list 1 2 3 4 5 200)) ; #f
 
-; function that validates the numbers entered
+
+; ////////////////////////////////////////////////// valid-numbers? Function /////////////////////////////////////////////////////////
+
+; Function that validates the numbers entered
 ; the list must have 6 numbers and must be from the
 ; pool of allowed numbers. Returns #t or #f
 (define (valid-numbers? l)
@@ -226,6 +273,7 @@
        )
    )
 )
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ; test
 (valid-numbers? (list 1 2 3 4 5 6)) ; #t
@@ -237,7 +285,10 @@
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
 
-; the main function so solve the problem
+
+; ////////////////////////////////////////////////// solvecount Function /////////////////////////////////////////////////////////
+
+; The main function to solve the problem
 ; Takes a target number and a list of numbers
 (define (solvecount t l)
   ; Check that parameters where entered correctly
@@ -249,6 +300,8 @@
           "Target number not valid, must be (101 - 999)"   
       )
   ))
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 (solvecount 200 (list 1 2 3 4 5 6))
 
