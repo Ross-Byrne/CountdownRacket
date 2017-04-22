@@ -40,30 +40,33 @@
 ; define a list of all perms of a 6 number list without dupes
 (define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
 
-; function to get all unique permutations of a list of numbers
-(define (get-permutations l)
-  (if (null? l)
-      null ; return null if list is null
-      (remove-duplicates (permutations l))) ; otherwise return all unique perms
-  )
-
 
 ; function that returns a list of all 6, 5, 4, 3, and 2 unique permutations of a list of numbers
 
 (define l (list 1 2 3 4 5 6))
 
 ;(remove-duplicates (permutations l))
-(length (combinations l 3))
-(combinations l 3)
-(remove-duplicates (map permutations (combinations l 3)))
+;(length (combinations l 3))
+;(combinations l 3)
+;(length (map permutations (combinations l 3)))
 
+; function that makes a list of lists of lists, a list of lists
+; combinations gives back a list of lists. when mapping that to
+; permutations, to get every permutation of every combination,
+; it returns a list with all the lists of permutations, of the combinations
+; eg the permutation list is nested 2 lists deep.
 (define (format-list-of-lists l [x (list )])
+  ; if list is null, return x (list of all perms)
   (if (null? l)
       x
+      ; append the car of l (which is a list of lists)
+      ; to the list x, then pass the cdr of l and x back into function
       (format-list-of-lists (cdr l) (append x (car l)))
   ))
 
-(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 3)))))
+; function that gets the list of all permutations, of the selected number of
+; combinations of the list provided
+(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
  
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
