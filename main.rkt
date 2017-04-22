@@ -158,9 +158,6 @@
   (map replace-operators (format-correct-evaluation (first l) (second l) (third l)))
  )
 
-; format first solution
-(format-solution (car correct-evaluations))
-
 ; function that formats all of the solutions
 ; by mapping all solutions to format-solution function
 (define (format-all-solutions l)
@@ -169,6 +166,18 @@
 
 ; format all solutions
 (format-all-solutions correct-evaluations)
+
+; the main function so solve the problem
+; Takes a target number and a list of numbers
+(define (solvecount target l)
+  ; Check that parameters where entered correctly
+  (if (or (null? target) (null? l))
+      "Incorrect Parameters Entered."
+      ;Check target number is value
+      ;Check numbers are value
+      "TODO: validate entered parameters"
+  ))
+
 (newline)
 "Correct solutions:"
 (length (format-all-solutions correct-evaluations))
