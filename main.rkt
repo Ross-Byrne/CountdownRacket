@@ -64,10 +64,18 @@
       (format-list-of-lists (cdr l) (append x (car l)))
   ))
 
-; function that gets the list of all permutations, of the selected number of
-; combinations of the list provided
+; function that gets the list of all permutations, 
+; of the combinations of the list of the selected size.
+;Takes a list and a number. Returns a list of all the perms
+(define (get-all-perms l n)
+  ; get all combinations of list, of size selected.
+  ; Then get the permutations of each combination.
+  ; Then format the list and remove dupes.
+  (remove-duplicates (format-list-of-lists (map permutations (combinations l n))))
+)
+
 (length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
- 
+(length (get-all-perms l 6))
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
