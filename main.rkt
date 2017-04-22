@@ -55,7 +55,14 @@
 ;(remove-duplicates (permutations l))
 (length (combinations l 2))
 (length (remove-duplicates (permutations (car (combinations l 6)))))
-(remove-duplicates(map append (combinations l 3)))
+(combinations l 3)
+(car (remove-duplicates (map permutations (combinations l 3))))
+
+;(define (format-list-of-lists l [x (list )])
+;  (if (null? l)
+;      x
+;      (format-list-of-lists (cdr))
+;  )
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
