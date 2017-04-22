@@ -53,16 +53,18 @@
 (define l (list 1 2 3 4 5 6))
 
 ;(remove-duplicates (permutations l))
-(length (combinations l 2))
-(length (remove-duplicates (permutations (car (combinations l 6)))))
+(length (combinations l 3))
 (combinations l 3)
-(car (remove-duplicates (map permutations (combinations l 3))))
+(remove-duplicates (map permutations (combinations l 3)))
 
-;(define (format-list-of-lists l [x (list )])
-;  (if (null? l)
-;      x
-;      (format-list-of-lists (cdr))
-;  )
+(define (format-list-of-lists l [x (list )])
+  (if (null? l)
+      x
+      (format-list-of-lists (cdr l) (append x (car l)))
+  ))
+
+(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 3)))))
+ 
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
