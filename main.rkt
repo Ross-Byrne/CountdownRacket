@@ -178,25 +178,46 @@
       #f ; not a number, not valid
   ))
 ; test
-(valid-target? 101)
-(valid-target? 100)
-(valid-target? 400)
-(valid-target? 999)
-(valid-target? 1000)
+;(valid-target? 101)
+;(valid-target? 100)
+;(valid-target? 400)
+;(valid-target? 999)
+;(valid-target? 1000)
+
+; function that validates the numbers entered
+; the list must have 6 numbers and must be from the
+; pool of allowed numbers
+(define (valid-numbers? l)
+  (if (null? l)
+      #f
+      (if (equal? (length l) 6)
+          #t ; replace this with function that checks numbers are from num pool
+          #f
+          ))
+  )
+; test
+(valid-numbers? (list 1 2 3 4 5 6))
+(valid-numbers? (list 1 2 3 4 5))
+(valid-numbers? (list 1 2 3 4 4 4))
+(valid-numbers? (list 1 2 2 4 5 6))
 
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
 
 ; the main function so solve the problem
 ; Takes a target number and a list of numbers
-(define (solvecount target l)
+(define (solvecount t l)
   ; Check that parameters where entered correctly
-  (if (or (null? target) (null? l))
+  (if (or (null? t) (null? l))
       "Incorrect Parameters Entered."
       ;Check target number is value
-      ;Check numbers are value
-      "TODO: validate entered parameters"
+      (if (valid-target? t)
+          "check numbers are valid"
+          "Target number not valid, must be (101 - 999)"   
+      )
   ))
+
+(solvecount 200 (list 1 2 3 4 5 6))
 
 (newline)
 "Correct solutions:"
