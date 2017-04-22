@@ -27,7 +27,11 @@
 
 ; define list of all possible operator combinations
 ; using cartesian product
-(define all-5-operators (cartesian-product operators operators operators operators operators))
+(define all-5-operators (cartesian-product operators operators operators operators operators)) ; all 5
+(define all-4-operators (cartesian-product operators operators operators operators)) ; all 4
+(define all-3-operators (cartesian-product operators operators operators)) ; all 3
+(define all-2-operators (cartesian-product operators operators )) ; all 2
+(define all-1-operators (cartesian-product operators)) ; basicaly just operators list, just trying to be consistent
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
@@ -36,6 +40,21 @@
 ; define a list of all perms of a 6 number list without dupes
 (define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
 
+; function to get all unique permutations of a list of numbers
+(define (get-permutations l)
+  (if (null? l)
+      null ; return null if list is null
+      (remove-duplicates (permutations l))) ; otherwise return all unique perms
+  )
+
+
+; function that returns a list of all 6, 5, 4, 3, and 2 unique permutations of a list of numbers
+
+(define l (list 1 2 3 4 5 6))
+
+;(remove-duplicates (permutations l))
+(length (combinations l 2))
+(length (remove-duplicates (permutations (car (combinations l 6)))))
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
@@ -284,6 +303,8 @@
 
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
+
+; function to 
 
 
 ; ////////////////////////////////////////////////// solvecount Function /////////////////////////////////////////////////////////
