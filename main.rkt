@@ -276,11 +276,11 @@
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ; test
-(valid-numbers? (list 1 2 3 4 5 6)) ; #t
-(valid-numbers? (list 1 2 3 4 5))   ; #f
-(valid-numbers? (list 1 2 3 4 4 4)) ; #f
-(valid-numbers? (list 1 2 2 4 100 6)) ; #t
-(valid-numbers? (list 1 2 2 4 100 6 25)) ; #f
+;(valid-numbers? (list 1 2 3 4 5 6)) ; #t
+;(valid-numbers? (list 1 2 3 4 5))   ; #f
+;(valid-numbers? (list 1 2 3 4 4 4)) ; #f
+;(valid-numbers? (list 1 2 2 4 100 6)) ; #t
+;(valid-numbers? (list 1 2 2 4 100 6 25)) ; #f
 
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
@@ -296,7 +296,11 @@
       "Incorrect Parameters Entered."
       ;Check target number is value
       (if (valid-target? t)
-          "check numbers are valid"
+          ; the target number is correct, now check numbers are valid
+          (if (valid-numbers? l)
+              "Target and numbers valid" ; solve the problem here
+              "Numbers entered are not valid"
+          )
           "Target number not valid, must be (101 - 999)"   
       )
   ))
