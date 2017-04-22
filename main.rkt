@@ -43,7 +43,7 @@
 
 ; function that returns a list of all 6, 5, 4, 3, and 2 unique permutations of a list of numbers
 
-(define l (list 1 2 3 4 5 6))
+(define l (list 100 25 10 2 2 1))
 
 ;(remove-duplicates (permutations l))
 ;(length (combinations l 3))
@@ -64,9 +64,8 @@
       (format-list-of-lists (cdr l) (append x (car l)))
   ))
 
-; function that gets the list of all permutations, 
-; of the combinations of the list of the selected size.
-;Takes a list and a number. Returns a list of all the perms
+; Function to get all permutations of all combinations of size selected of a list.
+; Takes a list and a number. Returns a list of all the perms
 (define (get-all-perms l n)
   ; get all combinations of list, of size selected.
   ; Then get the permutations of each combination.
@@ -76,6 +75,8 @@
 
 (length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
 (length (get-all-perms l 6))
+
+
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
 
@@ -112,6 +113,9 @@
 ; This requires 1GB of memory allocated
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
 (define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
+
+(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
+(length all-5-opers-all-6-nums)
 
 ;(length valid-rpn-list)
 ;(car all-5-opers-all-6-nums)
