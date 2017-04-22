@@ -104,27 +104,28 @@
 
 ;(evaluate-rpn (first (car all-5-opers-all-6-nums)) (second (car all-5-opers-all-6-nums)) (third (car all-5-opers-all-6-nums)))
 
-; Filter all combinations of the rpn patterns, operators and numbers
+; Function correct-evaluations filters all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
 ; The function filter is not parallel unfortunately, so this is a bottle-neck
-(define filter-correct-evaluations
+(define correct-evaluations
   (filter (lambda (l)
             (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
   )
 
-
-;filter-correct-evaluations
-
-
-; Create function that gets result of filter-correct-evaluations and builds RPN list with pattern, operator and numbers to display
+; Function that gets result of filter-correct-evaluations and builds RPN list with pattern, operator and numbers to display
 ; This function is adapted from the function evaluate-rpn
+; The result of this function is a list that represents the RPN stack that evaluates to the target number.
+; The function takes the RPN pattern, the list of operators, list of numbers and the empty stack it's building.
 (define (format-correct-evaluation pattern-list oper-list num-list [s (list )])
   (if (null? pattern-list) ; if pattern list is empty, return the stack
       s ; return stack
       (if (= (car pattern-list) 1) ; otherwise, check if first pattern is 1
-         
+          ; pattern represents a number so add the first number to the list
+          ; call function again, passing the rest of the numbers and all operators and the list
           (format-correct-evaluation (cdr pattern-list) oper-list (cdr num-list) (append s (list (car num-list))))
 
+          ; pattern represents am operator, add operator to list, recall function and pass everything back in
+          ; only passing the rest of the operators.
           (format-correct-evaluation (cdr pattern-list) (cdr oper-list) num-list  (append s (list (car oper-list)))))
       )
   )
@@ -152,13 +153,24 @@
 ; and then maps the result list to replace-operators function
 ; to quote the operators so the solution looks nice.
 (define (format-solution l)
+  ; maps the result of format-correct-evaluation to replace-operators
+  ; which formats a single solution nicely
   (map replace-operators (format-correct-evaluation (first l) (second l) (third l)))
  )
 
-; formot first solution
-(format-solution (car filter-correct-evaluations))
+; format first solution
+(format-solution (car correct-evaluations))
 
+; function that formats all of the solutions
+; by mapping all solutions to format-solution function
+(define (format-all-solutions l)
+  (map format-solution l)
+  )
 
-
+; format all solutions
+(format-all-solutions correct-evaluations)
+(newline)
+"Correct solutions:"
+(length (format-all-solutions correct-evaluations))
 (newline) ; nice bit of formatting
 "Finished"
