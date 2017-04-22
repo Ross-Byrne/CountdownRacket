@@ -129,10 +129,6 @@
       )
   )
 
-;(first (car filter-correct-evaluations))
-;(second (car filter-correct-evaluations))
-;(third (car filter-correct-evaluations))
-
 ; Function that cleans up display solution
 ; replaces the operators with a quoted version
 ; so that + doesn't get displayed as #<procedure:+>
@@ -149,7 +145,20 @@
                   old)))))
 
 ; map all elements in list to replace function
-(map replace-operators (format-correct-evaluation (first (car filter-correct-evaluations)) (second (car filter-correct-evaluations)) (third (car filter-correct-evaluations))))
+;(map replace-operators (format-correct-evaluation (first (car filter-correct-evaluations)) (second (car filter-correct-evaluations)) (third (car filter-correct-evaluations))))
+
+; function to format a solution to reaching target number
+; runs the solution through format-correct-evaluation function
+; and then maps the result list to replace-operators function
+; to quote the operators so the solution looks nice.
+(define (format-solution l)
+  (map replace-operators (format-correct-evaluation (first l) (second l) (third l)))
+ )
+
+; formot first solution
+(format-solution (car filter-correct-evaluations))
+
+
 
 (newline) ; nice bit of formatting
 "Finished"
