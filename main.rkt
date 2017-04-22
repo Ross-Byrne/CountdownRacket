@@ -9,6 +9,9 @@
 ; List of all operators that can be used
 (define operators (list + - * /))
 
+; list of valid numbers
+(define numbers (list 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10 25 50 75 100))
+
 ; Permutations must have 1 1 at the start. Must end with -1.
 (define x (remove-duplicates (permutations start-perm)))
 
@@ -184,6 +187,32 @@
 ;(valid-target? 999)
 ;(valid-target? 1000)
 
+; function that checks input numbers are from the list of valid numbers
+; and that there are not more of the same numbers then allowed eg 2 2 2 2
+; takes the list of entered numbers, returns true of false
+(define (numbers-in-pool? l [pool numbers])
+  (if (null? l)
+      #t ; all numbers were processed, valid list
+      ; check that the length of the list after removing a number
+      ; is the same as length of number pool - 1
+      (if (equal? (length (remove (car l) pool)) (- (length pool) 1))
+         ; valid, number was removed, pass rest of numbers and pool with this number removed
+          ; back to the function again to process the rest
+         (numbers-in-pool? (cdr l) (remove (car l) pool))
+         ; number didn't remove anything, not valid number
+         #f
+      ))
+  )
+
+; test
+;(numbers-in-pool? (list 1 25 3 4 5 6)) ; #t
+;(numbers-in-pool? (list 1 1 3 4 5 100)) ; #t
+;(numbers-in-pool? (list 10 20 50 75 5 6)) ;#f
+;(numbers-in-pool? (list 1 2 3 100 75 100)) ; #f
+;(numbers-in-pool? (list 1 2 3 4 5 200)) ; #f
+
+
+
 ; function that validates the numbers entered
 ; the list must have 6 numbers and must be from the
 ; pool of allowed numbers
@@ -196,10 +225,10 @@
           ))
   )
 ; test
-(valid-numbers? (list 1 2 3 4 5 6))
-(valid-numbers? (list 1 2 3 4 5))
-(valid-numbers? (list 1 2 3 4 4 4))
-(valid-numbers? (list 1 2 2 4 5 6))
+;(valid-numbers? (list 1 2 3 4 5 6))
+;(valid-numbers? (list 1 2 3 4 5))
+;(valid-numbers? (list 1 2 3 4 4 4))
+;(valid-numbers? (list 1 2 2 4 5 6))
 
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
