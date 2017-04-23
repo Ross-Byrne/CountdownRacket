@@ -76,15 +76,15 @@ An empty list in Racket looks like the following:
 ```
 # What I've Learned
 
-I've learned a lot from completing this project but I'll outlive the two main take homes for me after finishing the project.
+I've learned a lot from completing this project but I'll outline the two main take homes for me after finishing the project.
 
 ## Planning
 The main thing I've learned has been planning. The importance of forward thinking and planning was very clear when solving this problem. This is because it wasn't just one or two tasks that needed solving, there was the overall problem and then each small component that the problem needed to be broken down into to actually solve the problem.
 
-I feel this has greatly improved by problem solving skills as well as planning skills. When solving the problem, I just thought about it for a few weeks before even attempting to write any code. I believe this was why, when I started coding, I was able to step by step solve the problem and develop a working solution.
+I feel this has greatly improved by problem solving skills as well as planning skills. When solving the problem, I just thought about it for a few weeks before even attempting to write any code. I believe this was why when I started coding, I was able to step by step solve the problem and develop a working solution without many problem.
 
 ## Racket
-Although it feels like I've only just scratched the surface with Racket, I have definitely learned a lot. I feel very confident that I could solve any problem I can solve in another programming language,in Racket.
+Although it feels like I've only just scratched the surface with Racket, I have definitely learned a lot. I feel very confident that I could solve any problem I can solve in another programming language, in Racket.
 
 I'm not sure when I will use Racket again but it is an option for me with future problems. I can really see the power of functional programming languages when it comes to these types of problems. I don't think it would be harder to solve this problem in something like Java, but I feel like it would take a lot more code to achieve the same solution I have in Racket.
 
