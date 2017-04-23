@@ -442,45 +442,51 @@
 ;(valid-numbers? (list 1 2 2 4 100 6)) ; #t
 ;(valid-numbers? (list 1 2 2 4 100 6 25)) ; #f
 
-
 ;(length (get-all-patterns-operators-numbers number-list))
-
-
-;(length (get-all-patterns-operators-numbers number-list))
-;(length (get-all-correct-solutions (car (get-all-patterns-operators-numbers number-list)) target-number))
 ;(length (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))
 
 ; ////////////////////////////////////////////////// solvecount Function /////////////////////////////////////////////////////////
 
 ; The main function to solve the problem
 ; Takes a target number and a list of numbers
+; returns the list of formatted solutions and the number of solutions
 (define (solvecount t l)
   ; Check that parameters where entered correctly
   (if (or (null? t) (null? l))
-      "Incorrect Parameters Entered."
+      "Incorrect Parameters Entered." ; one is null, give error
       ;Check target number is value
       (if (valid-target? t)
           ; the target number is correct, now check numbers are valid
           (if (valid-numbers? l)
+              ; numbers are valid. using let-values to be memory and time efficient
+              ; get all possible rpn patterns, operators and numbers,
+              ; for 6, 5, 4, 3 and 2 numbers. Then assign the value to x,
+              ; so it doesn't need to be called again.
              (let-values ([(x)(get-all-patterns-operators-numbers l)])
+               ; then, so save time and memory again, we're only calculating
+               ; all solutions once and assigning them to y.
                (let-values
-                   ([(y)
-                     (append
-                      (correct-evaluations (first x) t)
-                      (correct-evaluations (second x) t)
-                      (correct-evaluations (third x) t)
-                      (correct-evaluations (fourth x) t)
-                      (correct-evaluations (fifth x) t)
+                   ([(y) ; all solutions are appended to one list and saved to y
+                     (append ; append all of the solutions for each set of numbers, to one list
+                      (correct-evaluations (first x) t) ; gets all solutions for 6 numbers
+                      (correct-evaluations (second x) t); gets all solutions for 5 numbers
+                      (correct-evaluations (third x) t) ; gets all solutions for 4 numbers
+                      (correct-evaluations (fourth x) t); gets all solutions for 3 numbers
+                      (correct-evaluations (fifth x) t) ; gets all solutions for 2 numbers
                       )
-                     ])(values
+                     ])(values; use values to display more then one value
+                        ; format all of the solutions, which are saved to y
+                        ; all formatted solutions are then printed out to screen
                         (format-all-solutions y)
+                        ; then get the length of the list y (all solutions)
+                        ; and format it in a string to inform the user of the number of solutions
                         (format "Number of solutions: ~a" (length y))
                         )
                  )
                )
-              "Numbers entered are not valid"
+              "Numbers entered are not valid" ; the numbers entered are not valid, print error
           )
-          "Target number not valid, must be (101 - 999)"   
+          "Target number not valid, must be (101 - 999)" ; the target number is not valid, print error
       )
   ))
 
