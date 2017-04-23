@@ -24,7 +24,7 @@
 
 
 ; The target number (must be between 101 and 999 inclusive)
-(define target-number 424)
+(define target-number 200)
 
 ; define list of all possible operator combinations
 ; using cartesian product
@@ -116,7 +116,7 @@
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-(define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
+;(define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 ;(length valid-rpn-list)
 ; display list of valid rpn patterns
 ;valid-rpn-list
@@ -162,7 +162,8 @@
    ; make the rpn pattern for 2 numbers 1 operator, cons to front of list
    ; then reverse the list, so first element is list of all patterns for 6n 5o
    ; and the last element is patterns for 2m 1o
-   (reverse (cons (make-rpn null) x))
+   ; add this one list to a list, to keep it consistent with the rest.
+   (reverse (cons (list (make-rpn null)) x))
    ; if template not empty, get all unique perms of template, map them to make-rpn to turn them
    ; into rpn patterns. Then pass that to get-valid-rpn to only get valid patterns.
    ; Cons this to front of list, pass it to function again recursively and pass template list with
@@ -492,6 +493,6 @@
 
 (newline)
 "Correct solutions:"
-;(length (format-all-solutions (correct-evaluations (first (get-all-patterns-operators-numbers number-list)) target-number)))
+(length (format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number)))
 (newline) ; nice bit of formatting
 "Finished"
