@@ -24,7 +24,7 @@
 
 
 ; The target number (must be between 101 and 999 inclusive)
-(define target-number 424)
+;(define target-number 424)
 
 ; define list of all possible operator combinations
 ; using cartesian product
@@ -40,7 +40,7 @@
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
-(define number-list (list 100 25 10 2 2 1))
+;(define number-list (list 100 25 10 2 2 1))
 
 ; define a list of all perms of a 6 number list without dupes
 ;(define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
@@ -466,35 +466,10 @@
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
 
-; function to map correct-evaluations function to all generated RPN patterns,
-; operators and numbers for 6, 5, 4, 3 and 2 numbers. This will allow to
-; find every solution, even ones that don't use all of the numbers.
-(define (get-all-correct-solutions l target [s (list )])
-  (if (or (null? l) (null? target))
-   s
-   (get-all-correct-solutions (cdr l) target (cons s (correct-evaluations l)))
-   )
-
-)
 
 ;(length (get-all-patterns-operators-numbers number-list))
 
-(let-values ([(x)(get-all-patterns-operators-numbers number-list)])
-    (let-values
-        ([(y)
-          (append
-           (correct-evaluations (first x) target-number)
-           (correct-evaluations (second x) target-number)
-           (correct-evaluations (third x) target-number)
-           (correct-evaluations (fourth x) target-number)
-           (correct-evaluations (fifth x) target-number)
-           )
-          ])(values
-             (format-all-solutions y)
-             (format "Number of solutions: ~a" (length y))
-             )
-      )
-)
+
 
 ;(length (get-all-patterns-operators-numbers number-list))
 ;(length (get-all-correct-solutions (car (get-all-patterns-operators-numbers number-list)) target-number))
@@ -512,7 +487,22 @@
       (if (valid-target? t)
           ; the target number is correct, now check numbers are valid
           (if (valid-numbers? l)
-              "Target and numbers valid" ; solve the problem here
+             (let-values ([(x)(get-all-patterns-operators-numbers l)])
+               (let-values
+                   ([(y)
+                     (append
+                      (correct-evaluations (first x) t)
+                      (correct-evaluations (second x) t)
+                      (correct-evaluations (third x) t)
+                      (correct-evaluations (fourth x) t)
+                      (correct-evaluations (fifth x) t)
+                      )
+                     ])(values
+                        (format-all-solutions y)
+                        (format "Number of solutions: ~a" (length y))
+                        )
+                 )
+               )
               "Numbers entered are not valid"
           )
           "Target number not valid, must be (101 - 999)"   
@@ -521,17 +511,7 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-(solvecount 200 (list 1 2 3 4 5 6))
+(solvecount 200 (list 100 25 10 2 2 1))
 
-
-;(format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number))
-;(let-values ([(x)(format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))])
-;    (values
-;     (length x)
-;     (first x)))
-
-(newline)
-"Correct solutions:"
-;(length (format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number)))
 (newline) ; nice bit of formatting
 "Finished"
