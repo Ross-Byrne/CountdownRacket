@@ -27,9 +27,9 @@ twice in the list of six then it may be used twice.
 
 ## My Solution
 
-In my solution, when the main.rkt file, which is the main file, is run, the program will solve the problem using the target number: 200 and the list of numbers: (100, 25, 10, 2, 2, 1).
+In my solution, when the __main.rkt__ file, which is the main file, is run, the program will solve the problem using the target number: 200 and the list of numbers: (100, 25, 10, 2, 2, 1).
 
-Once that is complete, the user can using the function __solvecount__ and add their our target number and list of 6 numbers. If the target number is not between 101 and 999 or the numbers are not from the available pool of numbers, an error message will be displayed.
+Once that is complete, the user can use the function __solvecount__ and add their our target number and list of 6 numbers. If the target number is not between 101 and 999 or the numbers are not from the available pool of numbers, an error message will be displayed.
 
 # Setup
 
