@@ -40,6 +40,11 @@ The first thing that is required, is to have Racket installed. Information on ho
 
 With Racket installed, navigate to the main folder and open __main.rkt__ in the Racket IDE Dr Racket.
 
+### Note
+I allocated 5000MB of RAM to racket, to use when running the script. I think 4GBs is probably enough but 5GBs definitely works.
+
+On my laptop, the script only takes about 1 minute to finish executing. I am however using Ubuntu with an i7 CPU, 12GBs of RAM and an SSD. Results may vary.
+
 Once the file is open, press f5 to start running it. As stated above, it will automatically solve the problem with the target number: 200 and the list of 6 numbers: (100, 25, 10, 2, 2, 1).
 Once the solutions are found, a list of all the solutions are printed to the screen followed by a message informing the user how many solutions were found. This is because 6000 or more solutions can be found depending on the target number and list of 6 numbers selected.
 
@@ -100,7 +105,7 @@ There will not be any code snippets here because it will just make an already co
 The main function takes a number, which is the target number and a list, which is the list of 6 numbers that are from the pool of available numbers. The target number and list of numbers are validated. This makes sure the target number is a number between 101 and 999 and that the list of numbers is 6 numbers long and that all numbers in the list can be found in the pool of available numbers.
 
 ## Step Two
-The program uses Reverse Polish Notation (RPN) to evaluate the possible solutions. So to do this, first a list of all RPN patterns are generated. This includes all of the possible patterns for 6 numbers, 5 numbers, 4 numbers, 3 numbers and 2 numbers. This is required because not all of the 6 numbers are required to reach the target number.
+The program uses Reverse Polish Notation (RPN) to evaluate the possible solutions. So to do this, first a list of all RPN patterns is generated. This includes all of the possible patterns for 6 numbers, 5 numbers, 4 numbers, 3 numbers and 2 numbers. This is required because not all of the 6 numbers are required to reach the target number.
 
 ## Step Three
 The RPN patterns are validated, to make sure they are valid RPN patterns. This function is very similar to the function that actually evaluates the Reverse Polish Notation, which is explained below.
