@@ -171,13 +171,13 @@
 
 ; tests
 
-(length (get-all-rpn-patterns start-perm))
-(length (first (get-all-rpn-patterns start-perm)))
-(length (second (get-all-rpn-patterns start-perm)))
-(length (last (get-all-rpn-patterns start-perm)))
+;(length (get-all-rpn-patterns start-perm))
+;(length (first (get-all-rpn-patterns start-perm)))
+;(length (second (get-all-rpn-patterns start-perm)))
+;(length (last (get-all-rpn-patterns start-perm)))
 
-(last (get-all-rpn-patterns start-perm))
-(fourth (get-all-rpn-patterns start-perm))
+;(last (get-all-rpn-patterns start-perm))
+;(fourth (get-all-rpn-patterns start-perm))
 
 
 ; define a list of all the combinations of 5 operators
@@ -187,7 +187,7 @@
 ; That is all rpn patterns X all 5 operators X all 6 numbers
 ; This requires 1GB of memory allocated
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
-(define all-5-opers-all-6-nums (cartesian-product valid-rpn-list all-5-operators all-6-numbers))
+(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) all-5-operators all-6-numbers))
 
 ;(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
 ;(length all-5-opers-all-6-nums)
@@ -238,10 +238,20 @@
 ; Function correct-evaluations filters all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
 ; The function filter is not parallel unfortunately, so this is a bottle-neck
-(define correct-evaluations
+;(define correct-evaluations
+;  (filter (lambda (l)
+;            (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
+;  )
+
+
+(define (correct-evaluations l target)
   (filter (lambda (l)
-            (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
+            (equal? (evaluate-rpn (first l) (second l) (third l)) target)) l )
   )
+
+;(length correct-evaluations)
+(length (correct-evaluations all-5-opers-all-6-nums target-number))
+
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -430,8 +440,11 @@
 
 (solvecount 200 (list 1 2 3 4 5 6))
 
+
+;(format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number))
+
 (newline)
 "Correct solutions:"
-(length (format-all-solutions correct-evaluations))
+(length (format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number)))
 (newline) ; nice bit of formatting
 "Finished"
