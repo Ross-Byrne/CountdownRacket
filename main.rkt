@@ -24,7 +24,7 @@
 
 
 ; The target number (must be between 101 and 999 inclusive)
-(define target-number 200)
+(define target-number 424)
 
 ; define list of all possible operator combinations
 ; using cartesian product
@@ -472,14 +472,19 @@
 (define (get-all-correct-solutions l target [s (list )])
   (if (or (null? l) (null? target))
    s
-   (get-all-correct-solutions (cdr l) target (cons s (correct-evaluations (car l))))
+   (get-all-correct-solutions (cdr l) target (cons s (correct-evaluations l)))
    )
 
 )
 
-(length (last (get-all-patterns-operators-numbers number-list)))
-;(length get-all-correct-solutions (get-all-patterns-operators-numbers number-list) target-number)
+(let-values ([(x)(get-all-patterns-operators-numbers number-list)])
+    (values
+     (length (correct-evaluations (first x) target-number))
+     (length (correct-evaluations (second x) target-number))))
 
+;(length (get-all-patterns-operators-numbers number-list))
+;(length (get-all-correct-solutions (car (get-all-patterns-operators-numbers number-list)) target-number))
+;(length (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))
 
 ; ////////////////////////////////////////////////// solvecount Function /////////////////////////////////////////////////////////
 
@@ -506,10 +511,10 @@
 
 
 ;(format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number))
-(let-values ([(x)(format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))])
-    (values
-     (length x)
-     (first x)))
+;(let-values ([(x)(format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))])
+;    (values
+;     (length x)
+;     (first x)))
 
 (newline)
 "Correct solutions:"
