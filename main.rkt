@@ -477,16 +477,24 @@
 
 )
 
+;(length (get-all-patterns-operators-numbers number-list))
+
 (let-values ([(x)(get-all-patterns-operators-numbers number-list)])
-    (let-values ([(y)
-                  (append
-                   (correct-evaluations (first x) target-number)
-                   ;(correct-evaluations (second x) target-number)
-                   ;(correct-evaluations (third x) target-number)
-                   ;(correct-evaluations (fourth x) target-number)
-                   ;(correct-evaluations (fifth x) target-number)
-                  )
-                 ])(length y)))
+    (let-values
+        ([(y)
+          (append
+           (correct-evaluations (first x) target-number)
+           (correct-evaluations (second x) target-number)
+           (correct-evaluations (third x) target-number)
+           (correct-evaluations (fourth x) target-number)
+           (correct-evaluations (fifth x) target-number)
+           )
+          ])(values
+             (format-all-solutions y)
+             (format "Number of solutions: ~a" (length y))
+             )
+      )
+)
 
 ;(length (get-all-patterns-operators-numbers number-list))
 ;(length (get-all-correct-solutions (car (get-all-patterns-operators-numbers number-list)) target-number))
