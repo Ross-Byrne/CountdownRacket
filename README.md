@@ -103,10 +103,10 @@ The main function takes a number, which is the target number and a list, which i
 The program uses Reverse Polish Notation (RPN) to evaluate the possible solutions. So to do this, first a list of all RPN patterns are generated. This includes all of the possible patterns for 6 numbers, 5 numbers, 4 numbers, 3 numbers and 2 numbers. This is required because not all of the 6 numbers are required to reach the target number.
 
 ### Step Three
-The RPN patterns are validated, to make sure they are valid RPN patterns. This function is very similar to the function that actually evaluates the Reverse Polish Notation.
+The RPN patterns are validated, to make sure they are valid RPN patterns. This function is very similar to the function that actually evaluates the Reverse Polish Notation, which is explained below.
 
 ### Step Four
-We get the cartesian product of lists size 5, 4, 3, 2 and 1 of the 4 operators allowed. These operators are the addition, subtraction, multiplication and division operators. The cartesian product is a way of getting all of the possible combinations of 4 items, in lists that size are larger then the original. It also works for generating lists that are smaller then the original size, in this case, 4.
+We get the cartesian product of lists size 5, 4, 3, 2 and 1 of the 4 operators allowed. These operators are the addition, subtraction, multiplication and division operators. The cartesian product is a way of getting all of the possible combinations of 4 items, in lists that size are larger then the original. It also works for generating lists that are smaller then the original size. Our list of operators is a list of size 4.
 
 ### Step Five
 Then, we generate all of the unique permutations of the 6 numbers. We can't stop there though, 6 all they way down to 2 numbers could be used. We also generate all the combinations of the 6 number list, of size 2, 3, 4 and 5. Then we get the unique permutations of those lists as well.
