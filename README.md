@@ -118,13 +118,13 @@ In the one list that represents all of the possible numbers, from size 6 - 2, th
 
 The RPN patterns and operators are organized the same way. So the first list that is nested in each, being the RPN patterns, operator combinations and number permutations, the first list is generated for 6 numbers, the second is generated for 5 and so on down to the fifth list being generated for 2 numbers.
 
-This is important because when solving te problem, we have to solve all of the equations with 6 numbers first, then move on one by one. It is designed this why to be as efficient as possible. The computer cannot calculate all of the equations in one go because there could be 15 million of them for 6 numbers alone. This is why we calculate all of the equations with 6 numbers, filter out the incorrect equations and only store the correct one before moving on and calculating the rest. Too much memory is used otherwise.
+This is important because when solving the problem, we have to solve all of the equations with 6 numbers first, then move on one by one. It is designed this why to be as efficient as possible. The computer cannot calculate all of the equations in one go because there could be 15 million of them for 6 numbers alone. This is why we calculate all of the equations with 6 numbers, filter out the incorrect equations and only store the correct one before moving on and calculating the rest. Too much memory is used otherwise.
 
 ### Step Seven
 We generate the cartesian product of RPN patterns, operators and numbers. We do this the same way as we do when generating them. A list with 5 lists. The first being the cartesian product of the patterns, operators and numbers for 6 numbers, all the way down to the fifth list being for 2 numbers.
 
 ### Step Eight
-Once this list with 5 massive lists in it is generated, we assign is a variable called x so we don't have to waste time regenerating it.
+Once this list with 5 massive lists in it is generated, we assign it to a variable called x so we don't have to waste time regenerating it.
 
 ### Step Nine
 One at a time, we evaluate each of the 5 lists, the first being for 6 numbers. Once the first list is evaluated, all of the equations are passed to a function that only returns the list of RPN patterns, operators and numbers of equations that evaluate to the target number. This list is then appended to a list that will hold all of the solutions. Then the rest of the lists are evaluated the same, one at a time and appended to the list of solutions.
@@ -138,6 +138,6 @@ The list of all the RPN patterns, operators and numbers that evaluate to the tar
 This list of solutions is passed to a function that formats them into Reverse Polish Notation. This function is similar to the evaluation but justs adds them to a list instead of evaluating them.
 
 ### Step Twelve
-The list of formatted Reverse Polish Notation solutions are printed to the screen. The list is then counted and a message is displayed after the list is finished printing out. This message informs the user how many solutions were found because there are probably going to be more then can be counted manually. The last solutions to be printed out, are the solutions that used to least amount of numbers to evaluate to the target number.
+The list of formatted Reverse Polish Notation solutions are printed to the screen. The list is then counted and a message is displayed after the list is finished printing out. This message informs the user how many solutions were found because there is probably going to be more solutions then can be counted manually. The last solutions to be printed out, are the solutions that used the least amount of numbers to evaluate to the target number.
 
 # References
