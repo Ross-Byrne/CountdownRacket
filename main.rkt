@@ -1,7 +1,7 @@
 #lang racket
 
-"Starting..." ; Feedback for users, so they know program has started
-(newline)
+;"Starting..." ; Feedback for users, so they know program has started
+;(newline)
 
 ; cut out one -1 and two 1s
 (define start-perm (list -1 -1 -1 -1 1 1 1 1))
@@ -37,14 +37,6 @@
 ; a list each list of operators on it
 ; first entry is 5 operator and it goes all the way to 1
 (define all-operator-combinations (list all-5-operators all-4-operators all-3-operators all-2-operators all-1-operators))
-
-; Define a list of all perms of 6 numbers
-; Will hard code 6 numbers for now
-;(define number-list (list 100 25 10 2 2 1))
-
-; define a list of all perms of a 6 number list without dupes
-;(define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
-
 
 
 ; ////////////////////////////////////////////////// format-list-of-lists Function /////////////////////////////////////////////////////////
@@ -179,16 +171,6 @@
 ;(length (first (get-all-rpn-patterns start-perm)))
 ;(length (second (get-all-rpn-patterns start-perm)))
 ;(length (last (get-all-rpn-patterns start-perm)))
-
-
-
-; define a list of all the combinations of 5 operators
-; and 6 numbers
-
-; That is all rpn patterns X all 5 operators X all 6 numbers
-; This requires 1GB of memory allocated
-; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
-;(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
 
 
 ; ////////////////////////////////////////////////// get-cartesian-product Function /////////////////////////////////////////////////////////
@@ -350,9 +332,6 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-; map all elements in list to replace function
-;(map replace-operators (format-correct-evaluation (first (car filter-correct-evaluations)) (second (car filter-correct-evaluations)) (third (car filter-correct-evaluations))))
-
 
 ; ////////////////////////////////////////////////// format-solution Function /////////////////////////////////////////////////////////
 
@@ -463,12 +442,8 @@
 ;(valid-numbers? (list 1 2 2 4 100 6)) ; #t
 ;(valid-numbers? (list 1 2 2 4 100 6 25)) ; #f
 
-; format all solutions
-;(format-all-solutions correct-evaluations)
-
 
 ;(length (get-all-patterns-operators-numbers number-list))
-
 
 
 ;(length (get-all-patterns-operators-numbers number-list))
@@ -511,6 +486,10 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+"Starting.."
+(newline)
+
+; solve the problem with target number 200, numbers 100, 25, 10, 2, 2, 1
 (solvecount 200 (list 100 25 10 2 2 1))
 
 (newline) ; nice bit of formatting
