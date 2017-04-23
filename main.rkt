@@ -143,9 +143,27 @@
 ; ////////////////////////////////////////////////// get-all-rpn-patterns Function /////////////////////////////////////////////////////////
 
 ; function that returns a list of all valid rpn patterns
+; start with passing in the start-perm whcih is the template for rpn
+; patterns with 6 numbers and 5 operators. Function gets all perms of the start-perm
+; removes dupes, maps it to make-rpn to make each permutation an rpn pattern (ie adds 1 1 to start and -1 to end)
+; This creates all patterns for 6 numbers and 5 opers. Then it passes then into get-valid-rpn
+; which returns only the valid rpn patterns. Then it is cons to the start of the list.
+; A 1 and -1 are removed from the pattern template, to make patterns for 5 numbers and 4 operators.
+; That is then passed into the function again allow with the list being built.
+; Onces the pattern template list is empty, the base pattern is created for 2 numbers and 1 operater (1 1 -1)
+; this is then added to the list of all the other patterns and the list is reversed.
+; In the list returned, there are 5 elements, the first is all the valid patterns for 6 nums 5 opers.
+; this continues in desending order, so the last element is a list of all the valid rpn patterns for 2 num 1 opers.
 (define (get-all-rpn-patterns l [x (list )])
-  (if (null? l)
+  (if (null? l) ; if pattern template is empty
+   ; make the rpn pattern for 2 numbers 1 operator, cons to front of list
+   ; then reverse the list, so first element is list of all patterns for 6n 5o
+   ; and the last element is patterns for 2m 1o
    (reverse (cons (make-rpn null) x))
+   ; if template not empty, get all unique perms of template, map them to make-rpn to turn them
+   ; into rpn patterns. Then pass that to get-valid-rpn to only get valid patterns.
+   ; Cons this to front of list, pass it to function again recursively and pass template list with
+   ; one 1 and one -1 removed, so next patterns are for one number and operator less
    (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (get-valid-rpn (map make-rpn (remove-duplicates (permutations l)))) x)
   )))
 
