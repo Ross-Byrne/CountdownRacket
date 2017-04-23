@@ -36,26 +36,15 @@
 
 ; a list each list of operators on it
 ; first entry is 5 operator and it goes all the way to 1
-(define list-of-all-oper-lists (list all-5-operators all-4-operators all-3-operators all-2-operators all-1-operators))
-
-
+(define all-operator-combinations (list all-5-operators all-4-operators all-3-operators all-2-operators all-1-operators))
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
 (define number-list (list 100 25 10 2 2 1))
 
 ; define a list of all perms of a 6 number list without dupes
-(define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
+;(define all-6-numbers (remove-duplicates (permutations number-list))) ; removes the dupes
 
-
-; function that returns a list of all 6, 5, 4, 3, and 2 unique permutations of a list of numbers
-
-(define l (list 100 25 10 2 2 1))
-
-;(remove-duplicates (permutations l))
-;(length (combinations l 3))
-;(combinations l 3)
-;(length (map permutations (combinations l 3)))
 
 
 ; ////////////////////////////////////////////////// format-list-of-lists Function /////////////////////////////////////////////////////////
@@ -90,8 +79,21 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-;(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
-;(length (get-all-perms l 6))
+
+; ////////////////////////////////////////////////// get-all-number-perms Function /////////////////////////////////////////////////////////
+
+;Function that creates a List of all unique permutations of 6, 5, 4, 3 and 2 numbers
+; Takes the list of 6 numbers, returns the list of lists, which each have every unique perm
+(define (get-all-number-perms l)
+  (if (null? l)
+      l
+      (list (get-all-perms l 6) (get-all-perms l 5) (get-all-perms l 4) (get-all-perms l 3) (get-all-perms l 2))
+  )
+)
+
+; ////////////////////////////////////////////////// get-all-perms Function /////////////////////////////////////////////////////////
+
+;(get-all-number-perms number-list)
 
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
@@ -187,7 +189,7 @@
 ; That is all rpn patterns X all 5 operators X all 6 numbers
 ; This requires 1GB of memory allocated
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
-(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) all-5-operators all-6-numbers))
+(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
 
 ;(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
 ;(length all-5-opers-all-6-nums)
