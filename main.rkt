@@ -243,12 +243,16 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-(length (get-all-patterns-operators-numbers number-list))
-(first (first (get-all-patterns-operators-numbers number-list)))
-(first (second (get-all-patterns-operators-numbers number-list)))
-(first (third (get-all-patterns-operators-numbers number-list)))
-(first (fourth (get-all-patterns-operators-numbers number-list)))
-(first (fifth (get-all-patterns-operators-numbers number-list)))
+(let-values ([(x)(get-all-patterns-operators-numbers number-list)])
+    (values
+     (length (get-all-patterns-operators-numbers number-list))
+     (first (first x))
+     (first (second x))
+     (first (third x))
+     (first (fourth x))
+     (first (fifth x))
+    )
+)
 
 ; ////////////////////////////////////////////////// evaluate-rpn Function /////////////////////////////////////////////////////////
 
@@ -490,9 +494,12 @@
 
 
 ;(format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number))
+(let-values ([(x)(format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))])
+    (values (length x)
+     (first x)))
 
 (newline)
 "Correct solutions:"
-(length (format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number)))
+;(length (format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number)))
 (newline) ; nice bit of formatting
 "Finished"
