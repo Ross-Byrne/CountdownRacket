@@ -100,9 +100,21 @@ The main function for the solution is called __solvecount__ and can be found at 
 The main function takes a number, which is the target number and a list, which is the list of 6 numbers that are from the pool of available numbers. The target number and list of numbers are validated. This makes sure the target number is a number between 101 and 999 and that the list of numbers is 6 numbers long and that all numbers in the list can be found in the pool of available numbers.
 
 ### Step Two
+The program uses Reverse Polish Notation (RPN) to evaluate the possible solutions. So to do this, first a list of all RPN patterns are generated. This includes all of the possible patterns for 6 numbers, 5 numbers, 4 numbers, 3 numbers and 2 numbers. This is required because not all of the 6 numbers are required to reach the target number.
+
+### Step Three
+The RPN patterns are validated, to make sure they are valid RPN patterns.
+
+### Step Four
+We get the cartesian product of lists size 5, 4, 3, 2 and 1 of the 4 operators allowed. These operators are the addition, subtraction, multiplication and division operators. The cartesian product is a way of getting all of the possible combinations of 4 items, in lists that size are larger then the original. It also works for generating lists that are smaller then the original size, in this case, 4.
+
+### Step Five
+Then, we generate all of the unique permutations of the 6 numbers. We can't stop there though, 6 all they way down to 2 numbers could be used. We also generate all the combinations of the 6 number list, of size 2, 3, 4 and 5. Then we get the unique permutations of those lists as well.
+
+### Step Six
+The lists of RPN patterns, operators and numbers are all organized very specifically when they are generated. All three of the lists are organized in the same way, lets use the list of numbers to explain. In the one list that represents all of the possible numbers, from size 6 - 2, there are 5 lists. The first list is the list of all the permutations of the 6 numbers, of size 6. The second list is all of the permutations of the 6 numbers, in lists size 5, the third list is of numbers in lists size 5, the fourth is lists size 3 and the fifth and last list is the list of numbers, of size 2.
 
 
-
-# Detailed Code & Functionality Walk Through
+# Detailed Code Walk Through
 
 # References
