@@ -243,16 +243,16 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-(let-values ([(x)(get-all-patterns-operators-numbers number-list)])
-    (values
-     (length (get-all-patterns-operators-numbers number-list))
-     (first (first x))
-     (first (second x))
-     (first (third x))
-     (first (fourth x))
-     (first (fifth x))
-    )
-)
+;(let-values ([(x)(get-all-patterns-operators-numbers number-list)])
+;    (values
+;     (length (get-all-patterns-operators-numbers number-list))
+;     (first (first x))
+;     (first (second x))
+;     (first (third x))
+;     (first (fourth x))
+;     (first (fifth x))
+;    )
+;)
 
 ; ////////////////////////////////////////////////// evaluate-rpn Function /////////////////////////////////////////////////////////
 
@@ -466,7 +466,19 @@
 ; format all solutions
 ;(format-all-solutions correct-evaluations)
 
-; function to 
+; function to map correct-evaluations function to all generated RPN patterns,
+; operators and numbers for 6, 5, 4, 3 and 2 numbers. This will allow to
+; find every solution, even ones that don't use all of the numbers.
+(define (get-all-correct-solutions l target [s (list )])
+  (if (or (null? l) (null? target))
+   s
+   (get-all-correct-solutions (cdr l) target (cons s (correct-evaluations (car l))))
+   )
+
+)
+
+(length (last (get-all-patterns-operators-numbers number-list)))
+;(length get-all-correct-solutions (get-all-patterns-operators-numbers number-list) target-number)
 
 
 ; ////////////////////////////////////////////////// solvecount Function /////////////////////////////////////////////////////////
@@ -495,7 +507,8 @@
 
 ;(format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number))
 (let-values ([(x)(format-all-solutions (correct-evaluations (last (get-all-patterns-operators-numbers number-list)) target-number))])
-    (values (length x)
+    (values
+     (length x)
      (first x)))
 
 (newline)
