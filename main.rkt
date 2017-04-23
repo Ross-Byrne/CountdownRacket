@@ -179,8 +179,6 @@
 ;(length (second (get-all-rpn-patterns start-perm)))
 ;(length (last (get-all-rpn-patterns start-perm)))
 
-;(last (get-all-rpn-patterns start-perm))
-;(fourth (get-all-rpn-patterns start-perm))
 
 
 ; define a list of all the combinations of 5 operators
@@ -189,7 +187,10 @@
 ; That is all rpn patterns X all 5 operators X all 6 numbers
 ; This requires 1GB of memory allocated
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
-(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
+;(define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
+
+
+; ////////////////////////////////////////////////// get-cartesian-product Function /////////////////////////////////////////////////////////
 
 ; function to return the cartesian-product of 3 lists
 ; the first list is the list of all patterns, second is all operators
@@ -200,8 +201,30 @@
   (cartesian-product p o n)
 )
 
-(length all-5-opers-all-6-nums)
-(length (get-cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+;(length all-5-opers-all-6-nums)
+;(first (get-cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
+
+
+; ////////////////////////////////////////////////// get-all-cartesian-products Function /////////////////////////////////////////////////////////
+
+; Function that takes in 3 lists. Each list has 5 lists.
+; The first list in each is all the rpn patterns, operators and numbers
+; for 6 numbers, the second list is 5 numbers and so on down to 2 numbers
+; as the fifth element.
+; It maps each set of 5 lists to get-cartesian-product to get their cartesian product
+; The result is the cartesian product of rpn patterns, operators and numbers for 6
+; 5, 4, 3 and 2 numbers. Allow for every possible solution to be evaluated.
+; returns a 5 element list.
+(define (get-all-cartesian-products p o n)
+  (map get-cartesian-product p o n)
+  )
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// get-all-patterns-operators-numbers Function /////////////////////////////////////////////////////////
 
 ; Function that gets the cartesian-product of RPN patterns, operators and numbers for
 ; 6, 5, 4, 3 and 2 numbers, and adds them all to one list.
@@ -210,10 +233,21 @@
 ; Takes the list of 6 numbers.
 (define (get-all-patterns-operators-numbers l)
   (if (null? l)
-      l
-      (list )
+      l ; if list is null, return list
+      ; get the list of all rpn patterns, operators and number perm for 2 - 6 numbers
+      ; Pass them into function to get their cartesian products
+      (get-all-cartesian-products (get-all-rpn-patterns start-perm) all-operator-combinations (get-all-number-perms l))
   )
  )
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(length (get-all-patterns-operators-numbers number-list))
+(first (first (get-all-patterns-operators-numbers number-list)))
+(first (second (get-all-patterns-operators-numbers number-list)))
+(first (third (get-all-patterns-operators-numbers number-list)))
+(first (fourth (get-all-patterns-operators-numbers number-list)))
+(first (fifth (get-all-patterns-operators-numbers number-list)))
 
 ; ////////////////////////////////////////////////// evaluate-rpn Function /////////////////////////////////////////////////////////
 
@@ -458,6 +492,6 @@
 
 (newline)
 "Correct solutions:"
-(length (format-all-solutions (correct-evaluations all-5-opers-all-6-nums target-number)))
+;(length (format-all-solutions (correct-evaluations (first (get-all-patterns-operators-numbers number-list)) target-number)))
 (newline) ; nice bit of formatting
 "Finished"
