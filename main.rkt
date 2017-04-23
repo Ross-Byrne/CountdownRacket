@@ -238,20 +238,16 @@
 ; Function correct-evaluations filters all combinations of the rpn patterns, operators and numbers
 ; Filter all results that equal the target number
 ; The function filter is not parallel unfortunately, so this is a bottle-neck
-;(define correct-evaluations
-;  (filter (lambda (l)
-;            (equal? (evaluate-rpn (first l) (second l) (third l)) target-number)) all-5-opers-all-6-nums)
-;  )
-
-
+; Takes the list with the patterns, operators and numbers and the target number.
+; Returns the list of patterns, operators and numbers that evaluate to the target number
 (define (correct-evaluations l target)
+  ; filter the result of evaluate-rpn which returns #t or #t if target is met
+  ; I left the target outside the filter lambda because adding it as a param
+  ; list the list, slows down the filter process and uses a lot more memory.
+  ; I get the feeling it makes a copy of target number (which would make over 1 million copies)
   (filter (lambda (l)
             (equal? (evaluate-rpn (first l) (second l) (third l)) target)) l )
   )
-
-;(length correct-evaluations)
-(length (correct-evaluations all-5-opers-all-6-nums target-number))
-
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
