@@ -127,9 +127,9 @@ We generate the cartesian product of RPN patterns, operators and numbers. We do 
 Once this list with 5 massive lists in it is generated, we assign is a variable called x so we don't have to waste time regenerating it.
 
 ### Step Nine
-One at a time, we evaluate each of the 5 lists, the first being for 6 numbers. once the first list is evaluated, all of the equations are passed to a function that only returns the list of RPN patterns, operators and numbers of equations that evaluate to the target number. This list is then appended to a list that will hold all of the solutions. Then the rest of the lists are evaluated the same, one at a time and appended to the list of solutions.
+One at a time, we evaluate each of the 5 lists, the first being for 6 numbers. Once the first list is evaluated, all of the equations are passed to a function that only returns the list of RPN patterns, operators and numbers of equations that evaluate to the target number. This list is then appended to a list that will hold all of the solutions. Then the rest of the lists are evaluated the same, one at a time and appended to the list of solutions.
 
-To evaluate the RPN, the valid RPN pattern is passed into the function along with the list of operators and numbers. A stack is also used, which starts off empty. The pattern is checked, if there is a 1, it represents a number and a number is added to the top of the stack.
+To evaluate the RPN, the valid RPN pattern is passed into the function along with the list of operators and numbers. A stack is also used, which starts off empty. The pattern is checked, if there is a 1, it represents a number and a number is added to the top of the stack. This continues until a -1 is found in the pattern. Then, the first two numbers on the top of the stack are taken off, the operator is applied to them and the result is added back on top of the stack. This continues until there are no more items left in the RPN pattern list. The stack is left with one value on it, which is the result of the calculation.
 
 ### Step Ten
 The list of all the RPN patterns, operators and numbers that evaluate to the target number are saved to a variable so they do not have to be calculated again.
