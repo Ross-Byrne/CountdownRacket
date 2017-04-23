@@ -118,6 +118,9 @@
 ; display list of valid rpn patterns
 ;valid-rpn-list
 
+
+; ////////////////////////////////////////////////// get-valid-rpn Function /////////////////////////////////////////////////////////
+
 ; function that takes a list of all possible rpn patterns
 ; and returns a list of all valid patterns
 ; Filters all of the possible rpn patterns
@@ -131,15 +134,33 @@
       (filter (lambda (a) (equal? (valid-rpn? a) #t)) l))
 )
 
-(length valid-rpn-list)
-(length (get-valid-rpn all-rpn-patterns))
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+;(length valid-rpn-list)
+;(length (get-valid-rpn all-rpn-patterns))
+
+
+; ////////////////////////////////////////////////// get-all-rpn-patterns Function /////////////////////////////////////////////////////////
 
 ; function that returns a list of all valid rpn patterns
 (define (get-all-rpn-patterns l [x (list )])
   (if (null? l)
    (reverse (cons (make-rpn null) x))
-   (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (map make-rpn (remove-duplicates (permutations l))) x)
+   (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (get-valid-rpn (map make-rpn (remove-duplicates (permutations l)))) x)
   )))
+
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+; tests
+
+(length (get-all-rpn-patterns start-perm))
+(length (first (get-all-rpn-patterns start-perm)))
+(length (second (get-all-rpn-patterns start-perm)))
+(length (last (get-all-rpn-patterns start-perm)))
+
+(last (get-all-rpn-patterns start-perm))
+(fourth (get-all-rpn-patterns start-perm))
+
 
 ; define a list of all the combinations of 5 operators
 ; and 6 numbers
