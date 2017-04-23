@@ -19,8 +19,22 @@
 (define (make-rpn l)
   (append (list 1 1) l (list -1)))
 
+; functiont that returns a list of all valid rpn patterns
+(define (get-all-rpn-patterns l [x (list )])
+  (if (null? l)
+   (append x (make-rpn (null)))
+   (get-all-rpn-patterns (remove (list -1 1) l) (append x (map make-rpn (remove-duplicates (permutations l))))
+  )))
+
+start-perm
+(remove -1 (remove 1 start-perm))
+;(map make-rpn (remove-duplicates (permutations start-perm)))
+               
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
 (define all-rpn-patterns (map make-rpn x))
+
+(length all-rpn-patterns)
+(length (get-all-rpn-patterns start-perm))
 
 ; The target number (must be between 101 and 999 inclusive)
 (define target-number 424)
@@ -36,6 +50,8 @@
 ; a list each list of operators on it
 ; first entry is 5 operator and it goes all the way to 1
 (define list-of-all-oper-lists (list all-5-operators all-4-operators all-3-operators all-2-operators all-1-operators))
+
+
 
 ; Define a list of all perms of 6 numbers
 ; Will hard code 6 numbers for now
