@@ -33,6 +33,26 @@ Once that is complete, the user can use the function __solvecount__ and add thei
 
 # Setup
 
+The first thing that is required, is to have Racket installed. Information on how to do this, can be found [here](https://download.racket-lang.org/).
+
+# Running The Project
+
+With Racket installed, navigate to the main folder and open __main.rkt__ in the Racket IDE Dr Racket.
+
+Once the file is open, press f5 to start running it. As stated above, it will automatically solve the problem with the target number: 200 and the list of 6 numbers: (100, 25, 10, 2, 2, 1).
+Once the solutions are found, a list of all the solutions are printed to the screen followed by a message informing the user how many solutions were found. This is because 6000 or more solutions can be found depending on the target number and list of 6 numbers selected.
+
+The last solutions to be printed out will be the solutions with the least amount of numbers used to evaluate to the target number.
+
+Once the first solution is displayed, the user can use the __solvecount__ function to try a different target number and set of 6 numbers. 
+
+The user can achieve this by typing the following:
+```
+solvecount(424 (list 1 2 3 4 5 6))
+```
+The first parameter is the target number, in this example, 424.<br>
+The second parameter is the list of 6 numbers, in this case: (list 1 2 3 4 5 6).
+
 
 
 # What I Learned
