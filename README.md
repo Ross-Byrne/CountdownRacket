@@ -112,7 +112,13 @@ We get the cartesian product of lists size 5, 4, 3, 2 and 1 of the 4 operators a
 Then, we generate all of the unique permutations of the 6 numbers. We can't stop there though, 6 all they way down to 2 numbers could be used. We also generate all the combinations of the 6 number list, of size 2, 3, 4 and 5. Then we get the unique permutations of those lists as well.
 
 ### Step Six
-The lists of RPN patterns, operators and numbers are all organized very specifically when they are generated. All three of the lists are organized in the same way, lets use the list of numbers to explain. In the one list that represents all of the possible numbers, from size 6 - 2, there are 5 lists. The first list is the list of all the permutations of the 6 numbers, of size 6. The second list is all of the permutations of the 6 numbers, in lists size 5, the third list is of numbers in lists size 5, the fourth is lists size 3 and the fifth and last list is the list of numbers, of size 2.
+The lists of RPN patterns, operators and numbers are all organized very specifically when they are generated. All three of the lists are organized in the same way, so lets use the list of numbers to explain their structure. 
+
+In the one list that represents all of the possible numbers, from size 6 - 2, there are 5 lists. The first list is the list of all the permutations of the 6 numbers, in lists of size 6. The second list is all of the permutations of the 6 numbers, in lists size 5, the third list is of numbers in lists size 4, the fourth is lists size 3 and the fifth and last list is the list of numbers, of size 2.
+
+The RPN patterns and operators are organized the same way. So the first list that is nested in each, being the RPN patterns, operator combinations and number permutations, the first list is generated for 6 numbers, the second is generated for 5 and so on down to the fifth list being generated for 2 numbers.
+
+This is important because when solving te problem, we have to solve all of the equations with 6 numbers first, then move one one by one. It is designed this why to be as efficient as possible. The computer cannot calculate all of the equations in one go because there could be 15 million of them. This is why we calculate all of the equations with 6 numbers, filter out the incorrect equations and only store the correct one before moving on and calculating the rest. Too much memory is used otherwise.
 
 
 # Detailed Code Walk Through
