@@ -9,9 +9,9 @@
 
 ## Introduction
 
-As part of my Fourth Year module, Theory of Algorithms, we were asked to solve the countdown numbers game using the Racket functional programming language. One of the main motivations for this project was to gain experience solving a problem that sounds very straight forward but in reality, is not as straight forward as it first appears.
+As part of my Fourth Year module, Theory of Algorithms, we were asked to solve the countdown numbers game using the Racket functional programming language. One of the main motivations for this project was to gain experience solving a problem that sounds very straight forward but in reality, is not as straight forward as it first appears. Another learning outcome was learning how to use the functional programming language Racket, which we have never used before. 
 
-Another learning outcome was learning how to use the functional programming language Racket, which we have never used before. 
+For anyone interested in looking through my racket code, you will be happy to know that almost every line of code is commented explaining what is happening. There is also a paragraph at the top of every function outlining what the function is doing.
 
 ## About the Countdown Numbers Game
 In the Countdown Numbers game contestants are given six random numbers
@@ -100,6 +100,7 @@ The main function for the solution is called __solvecount__ and can be found at 
 The main function takes a number, which is the target number and a list, which is the list of 6 numbers that are from the pool of available numbers. The target number and list of numbers are validated. This makes sure the target number is a number between 101 and 999 and that the list of numbers is 6 numbers long and that all numbers in the list can be found in the pool of available numbers.
 
 ### Step Two
+
 
 
 # Detailed Code & Functionality Walk Through
