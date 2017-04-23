@@ -147,7 +147,7 @@ This list of solutions is passed to a function that formats them into Reverse Po
 The list of formatted Reverse Polish Notation solutions are printed to the screen. The list is then counted and a message is displayed after the list is finished printing out. This message informs the user how many solutions were found because there is probably going to be more solutions then can be counted manually. The last solutions to be printed out, are the solutions that used the least amount of numbers to evaluate to the target number.
 
 # Validation and Verification
-To validate and verify that all of the components of my solution work as intended, I printed out many small examples, as well as calculating the correct output myself. I did this for many of the result output by the various components involved in solving the problem.
+To validate and verify that all of the components of my solution work as intended, I printed out many small examples, as well as calculating the correct output myself. I did this for many of the results output by the various components involved in solving the problem.
 
 I also used the following Countdown Numbers game website to double check as many of my solutions as possible. The site can be found [here](http://www.crosswordtools.com/numbers-game/).
 
