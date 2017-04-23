@@ -22,19 +22,21 @@
 ; functiont that returns a list of all valid rpn patterns
 (define (get-all-rpn-patterns l [x (list )])
   (if (null? l)
-   (append x (make-rpn (null)))
-   (get-all-rpn-patterns (remove (list -1 1) l) (append x (map make-rpn (remove-duplicates (permutations l))))
+   (reverse (cons (make-rpn null) x))
+   (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (map make-rpn (remove-duplicates (permutations l))) x)
   )))
 
 start-perm
 (remove -1 (remove 1 start-perm))
-;(map make-rpn (remove-duplicates (permutations start-perm)))
+(length (map make-rpn (remove-duplicates (permutations (remove -1 (remove 1 start-perm))))))
                
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
 (define all-rpn-patterns (map make-rpn x))
 
 (length all-rpn-patterns)
 (length (get-all-rpn-patterns start-perm))
+(length (first (get-all-rpn-patterns start-perm)))
+(last (get-all-rpn-patterns start-perm))
 
 ; The target number (must be between 101 and 999 inclusive)
 (define target-number 424)
