@@ -13,6 +13,8 @@ As part of my Fourth Year module, Theory of Algorithms, we were asked to solve t
 
 For anyone interested in looking through my racket code, you will be happy to know that almost every line of code is commented explaining what is happening. There is also a paragraph at the top of every function outlining what the function is doing.
 
+For something with a more fancy layout, checkout the [Wiki](https://github.com/Ross-Byrne/CountdownRacket/wiki).
+
 ## About the Countdown Numbers Game
 In the Countdown Numbers game contestants are given six random numbers
 and a target number. The target number is a randomly generated three digit
