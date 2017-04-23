@@ -1,7 +1,15 @@
 # Countdown Game Solver Written in Racket
 
+## Information at a Glance
+**Author:** Ross Byrne <br>
+**Language:** Racket  <br>
+**Project:** Solve Countdown Numbers Game with Racket <br>
+**Project For:** Fourth Year Software Development Module, Theory of Algorithms
+
 ## Introduction
-Solving the Countdown Numbers game using the Racket functional programming language
+
+
+
 
 # Setup
 
