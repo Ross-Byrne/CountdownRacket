@@ -103,7 +103,7 @@ The main function takes a number, which is the target number and a list, which i
 The program uses Reverse Polish Notation (RPN) to evaluate the possible solutions. So to do this, first a list of all RPN patterns are generated. This includes all of the possible patterns for 6 numbers, 5 numbers, 4 numbers, 3 numbers and 2 numbers. This is required because not all of the 6 numbers are required to reach the target number.
 
 ### Step Three
-The RPN patterns are validated, to make sure they are valid RPN patterns.
+The RPN patterns are validated, to make sure they are valid RPN patterns. This function is very similar to the function that actually evaluates the Reverse Polish Notation.
 
 ### Step Four
 We get the cartesian product of lists size 5, 4, 3, 2 and 1 of the 4 operators allowed. These operators are the addition, subtraction, multiplication and division operators. The cartesian product is a way of getting all of the possible combinations of 4 items, in lists that size are larger then the original. It also works for generating lists that are smaller then the original size, in this case, 4.
@@ -129,6 +129,8 @@ Once this list with 5 massive lists in it is generated, we assign is a variable 
 ### Step Nine
 One at a time, we evaluate each of the 5 lists, the first being for 6 numbers. once the first list is evaluated, all of the equations are passed to a function that only returns the list of RPN patterns, operators and numbers of equations that evaluate to the target number. This list is then appended to a list that will hold all of the solutions. Then the rest of the lists are evaluated the same, one at a time and appended to the list of solutions.
 
+To evaluate the RPN, the valid RPN pattern is passed into the function along with the list of operators and numbers. A stack is also used, which starts off empty. The pattern is checked, if there is a 1, it represents a number and a number is added to the top of the stack.
+
 ### Step Ten
 The list of all the RPN patterns, operators and numbers that evaluate to the target number are saved to a variable so they do not have to be calculated again.
 
@@ -137,9 +139,5 @@ This list of solutions is passed to a function that formats them into Reverse Po
 
 ### Step Twelve
 The list of formatted Reverse Polish Notation solutions are printed to the screen. The list is then counted and a message is displayed after the list is finished printing out. This message informs the user how many solutions were found because there are probably going to be more then can be counted manually. The last solutions to be printed out, are the solutions that used to least amount of numbers to evaluate to the target number.
-
-
-
-# Detailed Code Walk Through
 
 # References
