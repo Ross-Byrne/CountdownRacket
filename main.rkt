@@ -185,21 +185,35 @@
 
 ; define a list of all the combinations of 5 operators
 ; and 6 numbers
-;(define all-5-opers-all-6-nums (cartesian-product all-5-operators all-6-numbers))
 
 ; That is all rpn patterns X all 5 operators X all 6 numbers
 ; This requires 1GB of memory allocated
 ; Is a list of 3 lists. First list is rpn pattern, second list is operators list and third list is numbers list
 (define all-5-opers-all-6-nums (cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
 
-;(length (cartesian-product valid-rpn-list all-5-operators (get-all-perms l 6)))
-;(length all-5-opers-all-6-nums)
+; function to return the cartesian-product of 3 lists
+; the first list is the list of all patterns, second is all operators
+; and third is list of all numbers. Can map this to get a list
+; for each number length eg 6, 5, 4, 3 and 2 numbers
+(define (get-cartesian-product p o n)
+  ; get the cartesian-product of the patterns, operators and numbers
+  (cartesian-product p o n)
+)
 
-;(length valid-rpn-list)
-;(car all-5-opers-all-6-nums)
-;(first (car all-5-opers-all-6-nums))
-;(second (car all-5-opers-all-6-nums))
-;(third (car all-5-opers-all-6-nums))
+(length all-5-opers-all-6-nums)
+(length (get-cartesian-product (car (get-all-rpn-patterns start-perm)) (first all-operator-combinations) (first (get-all-number-perms number-list))))
+
+; Function that gets the cartesian-product of RPN patterns, operators and numbers for
+; 6, 5, 4, 3 and 2 numbers, and adds them all to one list.
+; The function returns a list with 5 lists. Each one will have the
+; cartesian-product for it's number of numbers.
+; Takes the list of 6 numbers.
+(define (get-all-patterns-operators-numbers l)
+  (if (null? l)
+      l
+      (list )
+  )
+ )
 
 ; ////////////////////////////////////////////////// evaluate-rpn Function /////////////////////////////////////////////////////////
 
