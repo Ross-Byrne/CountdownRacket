@@ -82,16 +82,17 @@
 
 ; ////////////////////////////////////////////////// get-all-number-perms Function /////////////////////////////////////////////////////////
 
-;Function that creates a List of all unique permutations of 6, 5, 4, 3 and 2 numbers
+;Function that creates a List of all unique permutations of 6, 5, 4, 3 and 2 number combintations from start list
 ; Takes the list of 6 numbers, returns the list of lists, which each have every unique perm
 (define (get-all-number-perms l)
   (if (null? l)
-      l
+      l ; if null, return it
+      ; create a list with 5 lists, each list is all perms of the selected size combination of origial 6 num list
       (list (get-all-perms l 6) (get-all-perms l 5) (get-all-perms l 4) (get-all-perms l 3) (get-all-perms l 2))
   )
 )
 
-; ////////////////////////////////////////////////// get-all-perms Function /////////////////////////////////////////////////////////
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ;(get-all-number-perms number-list)
 
