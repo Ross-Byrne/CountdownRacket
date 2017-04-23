@@ -45,6 +45,7 @@ I allocated 5000MB of RAM to racket, to use when running the script. I think 4GB
 
 On my laptop, the script only takes about 1 minute to finish executing. I am however using Ubuntu with an i7 CPU, 12GBs of RAM and an SSD. Results may vary.
 
+### Running The Code
 Once the file is open, press f5 to start running it. As stated above, it will automatically solve the problem with the target number: 200 and the list of 6 numbers: (100, 25, 10, 2, 2, 1).
 Once the solutions are found, a list of all the solutions are printed to the screen followed by a message informing the user how many solutions were found. This is because 6000 or more solutions can be found depending on the target number and list of 6 numbers selected.
 
