@@ -112,9 +112,7 @@
 
 ; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-; filters all of the possible rpn patterns
-; runs each one through valid-rpn? function
-; and only returns the pattern if it is valid (if valid-rpn? returns #t)
+
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 ;(length valid-rpn-list)
 ; display list of valid rpn patterns
@@ -122,7 +120,19 @@
 
 ; function that takes a list of all possible rpn patterns
 ; and returns a list of all valid patterns
+; Filters all of the possible rpn patterns
+; runs each one through valid-rpn? function
+; and only returns the pattern if it is valid (if valid-rpn? returns #t)
+(define (get-valid-rpn l)
+  (if (null? l) ; check if l is null
+      l ; return l if it's null
+      ; otherwise, filter each pattern in l into valid-rpn? function
+      ; only return the patterns that are valid
+      (filter (lambda (a) (equal? (valid-rpn? a) #t)) l))
+)
 
+(length valid-rpn-list)
+(length (get-valid-rpn all-rpn-patterns))
 
 ; function that returns a list of all valid rpn patterns
 (define (get-all-rpn-patterns l [x (list )])
