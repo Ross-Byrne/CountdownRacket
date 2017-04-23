@@ -18,25 +18,10 @@
 ; function that adds 11 to the start and -1 to the end of all permutations
 (define (make-rpn l)
   (append (list 1 1) l (list -1)))
-
-; functiont that returns a list of all valid rpn patterns
-(define (get-all-rpn-patterns l [x (list )])
-  (if (null? l)
-   (reverse (cons (make-rpn null) x))
-   (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (map make-rpn (remove-duplicates (permutations l))) x)
-  )))
-
-start-perm
-(remove -1 (remove 1 start-perm))
-(length (map make-rpn (remove-duplicates (permutations (remove -1 (remove 1 start-perm))))))
                
 ; add 1 1 to start of all permutations. add -1 to the end of all permutations
 (define all-rpn-patterns (map make-rpn x))
 
-(length all-rpn-patterns)
-(length (get-all-rpn-patterns start-perm))
-(length (first (get-all-rpn-patterns start-perm)))
-(last (get-all-rpn-patterns start-perm))
 
 ; The target number (must be between 101 and 999 inclusive)
 (define target-number 424)
@@ -72,6 +57,9 @@ start-perm
 ;(combinations l 3)
 ;(length (map permutations (combinations l 3)))
 
+
+; ////////////////////////////////////////////////// format-list-of-lists Function /////////////////////////////////////////////////////////
+
 ; function that makes a list of lists of lists, a list of lists
 ; combinations gives back a list of lists. when mapping that to
 ; permutations, to get every permutation of every combination,
@@ -86,6 +74,11 @@ start-perm
       (format-list-of-lists (cdr l) (append x (car l)))
   ))
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+; ////////////////////////////////////////////////// get-all-perms Function /////////////////////////////////////////////////////////
+
 ; Function to get all permutations of all combinations of size selected of a list.
 ; Takes a list and a number. Returns a list of all the perms
 (define (get-all-perms l n)
@@ -95,11 +88,10 @@ start-perm
   (remove-duplicates (format-list-of-lists (map permutations (combinations l n))))
 )
 
+; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ;(length (remove-duplicates (format-list-of-lists (map permutations (combinations l 6)))))
 ;(length (get-all-perms l 6))
-
-
-
 
 
 ; ////////////////////////////////////////////////// valid-rpn? Function /////////////////////////////////////////////////////////
@@ -125,9 +117,19 @@ start-perm
 ; and only returns the pattern if it is valid (if valid-rpn? returns #t)
 (define valid-rpn-list (filter (lambda (l) (equal? (valid-rpn? l) #t)) all-rpn-patterns))
 ;(length valid-rpn-list)
-
 ; display list of valid rpn patterns
 ;valid-rpn-list
+
+; function that takes a list of all possible rpn patterns
+; and returns a list of all valid patterns
+
+
+; function that returns a list of all valid rpn patterns
+(define (get-all-rpn-patterns l [x (list )])
+  (if (null? l)
+   (reverse (cons (make-rpn null) x))
+   (get-all-rpn-patterns (remove -1 (remove 1 l)) (cons (map make-rpn (remove-duplicates (permutations l))) x)
+  )))
 
 ; define a list of all the combinations of 5 operators
 ; and 6 numbers
