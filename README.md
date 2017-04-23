@@ -2,7 +2,7 @@
 
 ## Information at a Glance
 **Author:** Ross Byrne <br>
-**Language:** Racket  <br>
+**Language:** [Racket](http://racket-lang.org/)  <br>
 **Project:** Solve Countdown Numbers Game with Racket <br>
 **Project For:** Fourth Year Software Development Module, Theory of Algorithms <br>
 **Lecturer:** Ian McLoughlin
