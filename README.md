@@ -72,7 +72,7 @@ This solution evaluates to 200. This can be achieved by doing the following:
 
 2 / 2 = 1 <br>
 1 + 1 = 2 <br>
-100 * 1 = 200
+100 * 2 = 200
 
 The last solutions to be printed out will be the solutions with the least amount of numbers used to evaluate to the target number.
 
